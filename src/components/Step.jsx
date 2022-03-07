@@ -1,19 +1,23 @@
-import { useContext,useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { StepContext } from '../App';
 import styled, { css } from 'styled-components';
 
-const Step = ({children}) => {
+const Step = ({ children }) => {
   const { currentStep, totalStep } = useContext(StepContext);
-  const {number, stepName,stepTitle} = useMemo(()=>currentStep,[currentStep]);
+  const { number, stepName, stepTitle } = useMemo(() => currentStep, [currentStep]);
   return (
-    number && <StepWrap>
-      <StepProgress>
-        <StepName>{stepName}</StepName>
-        <StepNumber><b>{number}</b> / {totalStep}</StepNumber>
-      </StepProgress>
-      <StepTitle>{stepTitle}</StepTitle>
-      <Content>{children}</Content>
-    </StepWrap>
+    number && (
+      <StepWrap>
+        <StepProgress>
+          <StepName>{stepName}</StepName>
+          <StepNumber>
+            <b>{number}</b> / {totalStep}
+          </StepNumber>
+        </StepProgress>
+        <StepTitle>{stepTitle}</StepTitle>
+        <Content>{children}</Content>
+      </StepWrap>
+    )
   );
 };
 
@@ -25,18 +29,16 @@ const StepWrap = styled.main`
   height: 100%;
   min-height: 100%;
   overflow-y: auto;
-  color:#5B5555;
-  ${({ theme }) => {
-  return css`
+  color: #5b5555;
+  ${({ theme }) => css`
     padding-top: ${theme.headerHeight};
     padding-bottom:${theme.footerHeight};
-   }`
-  }}
+   }`}
 `;
 
 const StepProgress = styled.div`
-  > *{
-  vertical-align: middle;
+  > * {
+    vertical-align: middle;
   }
 `;
 const StepName = styled.span`
@@ -45,14 +47,13 @@ const StepName = styled.span`
   margin-right: 4px;
 `;
 const StepNumber = styled.span`
-  ${({ theme }) => {
-  return css`
+  ${({ theme }) => css`
     color: ${theme.fontGray};
     font-size: 1rem;
-    & > b{
+    & > b {
       color: ${theme.mainColor};
-    }`
-  }}
+    }
+  `}
 `;
 
 const StepTitle = styled.h1`

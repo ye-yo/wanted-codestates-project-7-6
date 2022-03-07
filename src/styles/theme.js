@@ -1,11 +1,11 @@
 const commonStyle = {
-  borderRadius: '4px'
-}
+  borderRadius: '4px',
+};
 const buttonStyle = {
-  border:'none',
+  border: 'none',
   borderRadius: commonStyle.borderRadius,
-  fontWeight: 'bold'
-}
+  fontWeight: 'bold',
+};
 const theme = {
   mainColor: '#FF8450',
   fontColor: '#5B5555',
@@ -19,7 +19,7 @@ const theme = {
     // 회색 배경 input
     border: 'none',
     backgroundColor: '#F6F6F6',
-    borderRadius: commonStyle.borderRadius
+    borderRadius: commonStyle.borderRadius,
   },
   buttonMain: {
     //메인 색상 button
@@ -30,7 +30,7 @@ const theme = {
   buttonWhite: {
     //흰색 button
     ...buttonStyle,
-    border:'none',
+    border: 'none',
     color: '#7D7878',
     backgroundColor: 'white',
   },

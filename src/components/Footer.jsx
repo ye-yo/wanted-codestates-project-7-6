@@ -13,7 +13,7 @@ export default function Footer() {
   );
   return (
     <FooterWrap>
-      <Button onClick={() => moveStep(-1)}>이전</Button>
+      <Button onClick={() => moveStep(1)}>이전</Button>
       <Button type="main" disabled={!activeNext} onClick={() => moveStep(1)}>
         다음
       </Button>

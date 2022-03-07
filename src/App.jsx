@@ -4,7 +4,7 @@ import GlobalStyle from './styles/global';
 import theme from './styles/theme';
 import Footer from './components/Footer';
 import Step from './components/Step';
-import { TOTAL_STEP, TEST_STEP } from './constants/step.js';
+import { TOTAL_STEP, TEST_STEP } from './constants/step';
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState(TEST_STEP);

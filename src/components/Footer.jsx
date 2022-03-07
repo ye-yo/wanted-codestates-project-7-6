@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 export default function Footer() {
   const { currentStep, setCurrentStep } = useContext(StepContext);
   const nextStep = () => {
-    setCurrentStep({ ...currentStep, number: ++currentStep.number });
+    setCurrentStep({ ...currentStep, number: currentStep.number + 1 });
   };
   return (
     <FooterWrap>

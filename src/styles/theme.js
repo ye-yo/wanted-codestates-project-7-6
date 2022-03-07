@@ -6,6 +6,7 @@ const buttonStyle = {
   borderRadius: commonStyle.borderRadius,
   fontWeight: 'bold',
 };
+
 const theme = {
   mainColor: '#FF8450',
   fontColor: '#5B5555',

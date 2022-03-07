@@ -1,20 +1,22 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
+import { StepContext } from '../App';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Arrow } from '../assets/arrow_icon.svg';
 import { ReactComponent as Close } from '../assets/close_icon.svg';
-import { PageStepContext } from '../App';
 
 function Header({ title, prev, close }) {
-  const { step, setStep } = useContext(PageStepContext);
-
+  const { currentStep, setCurrentStep } = useContext(StepContext);
+  const prevStep = () => {
+    setCurrentStep({ ...currentStep, number: currentStep.number - 1 });
+  };
   return (
     <Container>
       <Item>
-        <ArrowIcon prev={prev} onClick={() => setStep(step - 1)} />
+        <ArrowIcon prev={prev} onClick={prevStep} />
       </Item>
       <Item>{title}</Item>
       <Item>
-        <CloseIcon close={close} onClick={() => setStep(step - 1)} />
+        <CloseIcon close={close} />
       </Item>
     </Container>
   );
@@ -23,8 +25,7 @@ function Header({ title, prev, close }) {
 export default Header;
 
 const Container = styled.header`
-  height: 56px;
-  border-bottom: 1px solid #e4e4e4;
+  height: ${(props) => props.theme.headerHeight};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -34,7 +35,8 @@ const Container = styled.header`
 const Item = styled.div`
   padding: 15px;
   font-weight: 700;
-  color: #5b5555;
+  font-size: 16px;
+  line-height: 26px;
 `;
 
 const ArrowIcon = styled(Arrow)`

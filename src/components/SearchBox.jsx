@@ -34,7 +34,7 @@ const SearchInput = ({ readOnly, handleBoxClick, placeholder, value = '', setVal
 
   return (
     <InputBox readOnly onClick={() => readOnly && handleBoxClick()}>
-      <Search style={{ cursor: 'pointer' }} onClick={() => !readOnly && handleClick} />
+      <Search style={{ cursor: 'pointer' }} onClick={() => !readOnly && handleClick()} />
       {readOnly ? (
         <Text isExist={value}>{value || placeholder}</Text>
       ) : (

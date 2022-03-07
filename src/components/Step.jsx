@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import styled, { css } from 'styled-components';
 import Header from './Header';
 
-const Step = ({ children }) => {
+export default function Step({ children }) {
   const { currentStep, totalStep } = useContext(StepContext);
   const { number, stepName, stepTitle } = useMemo(() => currentStep, [currentStep]);
   return (
@@ -30,9 +30,7 @@ const Step = ({ children }) => {
       </StepWrap>
     )
   );
-};
-
-export default Step;
+}
 
 const StepWrap = styled.div`
   width: 100%;

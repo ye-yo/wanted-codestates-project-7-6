@@ -28,6 +28,10 @@ const GlobalStyle = createGlobalStyle`
   button,a{
     cursor: pointer;
   }
+
+  input::placeholder{
+    color:#B6B3B3;
+  }
 `;
 
 export default GlobalStyle;

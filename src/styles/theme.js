@@ -15,6 +15,8 @@ const theme = {
   inputBorder: {
     //테두리가 있는 input
     border: '1px solid #EEEEEE',
+    borderRadius: commonStyle.borderRadius,
+    padding: '1rem',
   },
   inputGray: {
     // 회색 배경 input

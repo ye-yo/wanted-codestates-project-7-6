@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Search } from '../assets/search.svg';
 
-export default function SearchBox({ handleClickSearchIcon, children }) {
+export default function SearchBox({ handleIconClick, children }) {
   return (
     <InputBox>
-      <Search style={{ cursor: 'pointer' }} onClick={handleClickSearchIcon} />
+      <Search style={{ cursor: 'pointer' }} onClick={handleIconClick} />
       {children}
     </InputBox>
   );

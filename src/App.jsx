@@ -2,7 +2,6 @@ import { createContext, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/global';
 import theme from './styles/theme';
-import Footer from './components/Footer';
 import Step from './components/Step';
 import { TOTAL_STEP, TEST_STEP } from './constants/step.js';
 
@@ -12,7 +11,6 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StepContext.Provider value={{ totalStep: TOTAL_STEP, currentStep, setCurrentStep }}>
         <Step></Step>
-        <Footer />
         <GlobalStyle />
       </StepContext.Provider>
     </ThemeProvider>
@@ -25,6 +23,8 @@ export const StepContext = createContext({
     number: null,
     stepName: '',
     stepTitle: '',
+    hideFooter: false,
+    hideTitle: false,
   },
   setCurrentStep: () => {},
 });

@@ -1,5 +1,6 @@
 import { useContext, useMemo } from 'react';
 import { StepContext } from '../App';
+import Footer from '../components/Footer';
 import styled, { css } from 'styled-components';
 
 const Step = ({ children }) => {
@@ -8,14 +9,22 @@ const Step = ({ children }) => {
   return (
     number && (
       <StepWrap>
-        <StepProgress>
-          <StepName>{stepName}</StepName>
-          <StepNumber>
-            <b>{number}</b> / {totalStep}
-          </StepNumber>
-        </StepProgress>
-        <StepTitle>{stepTitle}</StepTitle>
-        <Content>{children}</Content>
+        {/* Header */}
+        <ContentWrap>
+          {!currentStep.hideTitle && (
+            <>
+              <StepProgress>
+                <StepName>{stepName}</StepName>
+                <StepNumber>
+                  <b>{number}</b> / {totalStep}
+                </StepNumber>
+              </StepProgress>
+              <StepTitle>{stepTitle}</StepTitle>
+            </>
+          )}
+          <Content>{children}</Content>
+        </ContentWrap>
+        {!currentStep.hideFooter && <Footer />}
       </StepWrap>
     )
   );
@@ -23,7 +32,12 @@ const Step = ({ children }) => {
 
 export default Step;
 
-const StepWrap = styled.main`
+const StepWrap = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const ContentWrap = styled.main`
   width: 100%;
   padding: 16px;
   height: 100%;

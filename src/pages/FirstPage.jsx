@@ -23,10 +23,9 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 768px;
-  height: 800px;
+  height: 100vh;
   margin: 0 auto;
   font-weight: 600;
-  overflow-y: auto;
 `;
 
 const CardContainer = styled.div`

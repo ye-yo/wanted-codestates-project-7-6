@@ -6,12 +6,15 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  #root{
+    height :100%;
+  }
   html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    color: '#5B5555'
+    color:#5B5555;
   }
 
   button,a{

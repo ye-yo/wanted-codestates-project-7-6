@@ -1,16 +1,36 @@
+import { createContext, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/global';
 import theme from './styles/theme';
+import Footer from './components/Footer';
+import Step from './components/Step';
 
-function App() {
+const totalStep = 4;
+
+const testStep = {
+  number: 1,
+  stepName:'돌봄 유형',
+  stepTitle: '돌봄 유형를 설정해주세요',
+}
+export default function App() {
+  const [currentStep, setCurrentStep] = useState(testStep);
+  console.log(currentStep)
   return (
     <ThemeProvider theme={theme}>
-      <div className='App'>
-        Hello World
-      </div>
+      <StepContext.Provider value={{ totalStep, currentStep, setCurrentStep }}>
+      <Step>스텝내부컴포넌트</Step>
+      <Footer/>
       <GlobalStyle />
+      </StepContext.Provider>
     </ThemeProvider>
   );
 }
-
-export default App;
+export const StepContext = createContext({
+  currentStep: {
+    totalStep: 0,
+    number: null,
+    stepName:'',
+    stepTitle: '',
+  },
+  setCurrentStep: () => {},
+});

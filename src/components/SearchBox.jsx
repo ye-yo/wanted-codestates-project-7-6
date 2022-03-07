@@ -10,15 +10,6 @@ const SearchInput = ({ readOnly, handleBoxClick, placeholder, value = '', setVal
     [setValue]
   );
 
-  const handleKeyPress = useCallback(
-    (e) => {
-      if (e.which === 13) {
-        handleSearch(e.target.value);
-      }
-    },
-    [search]
-  );
-
   const handleSearch = useCallback(
     (keyword) => {
       if (keyword.replace(/\s/gi, '') !== '') {
@@ -27,12 +18,22 @@ const SearchInput = ({ readOnly, handleBoxClick, placeholder, value = '', setVal
     },
     [search]
   );
+
   const handleClick = useCallback(() => {
     handleSearch(value);
-  }, [value]);
+  }, [value, handleSearch]);
+
+  const handleKeyPress = useCallback(
+    (e) => {
+      if (e.which === 13) {
+        handleSearch(e.target.value);
+      }
+    },
+    [handleSearch]
+  );
 
   return (
-    <InputBox readOnly onClick={() => !readOnly && handleBoxClick}>
+    <InputBox readOnly onClick={() => readOnly && handleBoxClick()}>
       <Search style={{ cursor: 'pointer' }} onClick={() => !readOnly && handleClick} />
       {readOnly ? (
         <Text isExist={value}>{value || placeholder}</Text>
@@ -58,8 +59,8 @@ const InputBox = styled.div`
     flex: 1;
     outline: none;
     font-size: 14px;
-    padding: 1px 2px;
     line-height: 16px;
+    padding: 1px 2px;
   }
 
   ${({ theme, readOnly }) => css`

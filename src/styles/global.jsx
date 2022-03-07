@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
     color:#5B5555;
+    font-size: 14px;
   }
 
   button,a{

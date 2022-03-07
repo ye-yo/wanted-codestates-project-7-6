@@ -1,6 +1,9 @@
+const commonStyle = {
+  borderRadius: '4px'
+}
 const buttonStyle = {
   border:'none',
-  borderRadius: '4px',
+  borderRadius: commonStyle.borderRadius,
   fontWeight: 'bold'
 }
 const theme = {
@@ -10,18 +13,17 @@ const theme = {
   borderColor: '#EEEEEE',
   inputBorder: {
     //테두리가 있는 input
-    border: '#EEEEEE',
-    placeholderTextColor: '#B6B3B3',
+    border: '1px solid #EEEEEE',
   },
   inputGray: {
     // 회색 배경 input
     border: 'none',
     backgroundColor: '#F6F6F6',
+    borderRadius: commonStyle.borderRadius
   },
   buttonMain: {
     //메인 색상 button
     ...buttonStyle,
-    border:'none',
     backgroundColor: '#FF8450',
     color: 'white',
   },

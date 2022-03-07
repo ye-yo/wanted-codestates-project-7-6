@@ -1,13 +1,19 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
   
   *, *::before, *::after {
     box-sizing: border-box;
+    font-family: 'Spoqa Han Sans Neo'; 
   }
 
   #root{
-    height :100%;
+    margin: 0 auto;
+    max-width: 767px;
+    min-height: 100vh;
+    position: relative;
+    background: #fff;
   }
   html, body {
     margin: 0;
@@ -16,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     color:#5B5555;
     font-size: 14px;
+    background: #5B5555;
   }
 
   button,a{

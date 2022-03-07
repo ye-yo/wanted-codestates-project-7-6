@@ -32,6 +32,7 @@ export const StepContext = createContext({
     stepTitle: '',
     hideFooter: false,
     hideTitle: false,
+    hideHeader: false,
   },
   setCurrentStep: () => {},
 });

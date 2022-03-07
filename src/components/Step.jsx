@@ -2,6 +2,7 @@ import { useContext, useMemo } from 'react';
 import { StepContext } from '../App';
 import Footer from '../components/Footer';
 import styled, { css } from 'styled-components';
+import Header from './Header';
 
 export default function Step({ children }) {
   const { currentStep, totalStep } = useContext(StepContext);
@@ -10,6 +11,7 @@ export default function Step({ children }) {
     number && (
       <StepWrap>
         {/* Header */}
+        {!currentStep.hideHeader && <Header title="돌보미 신청하기" prev />}
         <ContentWrap>
           {!currentStep.hideTitle && (
             <>

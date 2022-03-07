@@ -2,7 +2,7 @@ import { useContext,useMemo } from 'react';
 import { StepContext } from '../App';
 import styled, { css } from 'styled-components';
 
-const Step = () => {
+const Step = ({children}) => {
   const { currentStep, totalStep } = useContext(StepContext);
   const {number, stepName,stepTitle} = useMemo(()=>currentStep,[currentStep]);
   return (
@@ -12,21 +12,24 @@ const Step = () => {
         <StepNumber><b>{number}</b> / {totalStep}</StepNumber>
       </StepProgress>
       <StepTitle>{stepTitle}</StepTitle>
+      <Content>{children}</Content>
     </StepWrap>
   );
 };
 
 export default Step;
 
-const StepWrap = styled.div`
+const StepWrap = styled.main`
   width: 100%;
-  margin-top: 56px;
   padding: 16px;
   height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
   color:#5B5555;
   ${({ theme }) => {
   return css`
-    max-height: ${`calc(100% - ${theme.headerHeight} - ${theme.footerHeight})`};
+    padding-top: ${theme.headerHeight};
+    padding-bottom:${theme.footerHeight};
    }`
   }}
 `;
@@ -54,4 +57,8 @@ const StepNumber = styled.span`
 
 const StepTitle = styled.h1`
   font-size: 1.8rem;
+`;
+
+const Content = styled.div`
+  width: 100%;
 `;

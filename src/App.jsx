@@ -14,17 +14,17 @@ const testStep = {
 }
 export default function App() {
   const [currentStep, setCurrentStep] = useState(testStep);
-  console.log(currentStep)
   return (
     <ThemeProvider theme={theme}>
       <StepContext.Provider value={{ totalStep, currentStep, setCurrentStep }}>
-      <Step>스텝내부컴포넌트</Step>
+      <Step></Step>
       <Footer/>
       <GlobalStyle />
       </StepContext.Provider>
     </ThemeProvider>
   );
 }
+
 export const StepContext = createContext({
   currentStep: {
     totalStep: 0,

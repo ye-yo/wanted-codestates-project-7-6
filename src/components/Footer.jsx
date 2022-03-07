@@ -16,12 +16,14 @@ const Footer = () => {
 
 export default Footer;
 
-const FooterWrap = styled.div`
+const FooterWrap = styled.footer`
   width: 100%;
   height: ${props => props.theme.footerHeight};
   padding: 8px;
   position: absolute;
   bottom: 0;
+  background-color: white;
+  z-index: 100;
 `;
 const Button = styled.button`
   height: 100%;

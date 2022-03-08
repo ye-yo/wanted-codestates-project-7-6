@@ -1,9 +1,9 @@
 import { useContext, useState, useCallback, useMemo } from 'react';
-import { FooterContext } from '../App';
 import SearchBox from '../components/SearchBox';
 import styled from 'styled-components';
 import AddressModal from '../components/AddressModal/AddressModal';
 import { AddressContext } from '../context/AddressContext';
+import { FooterContext } from '../context/FooterContext';
 
 export default function StepAddress() {
   const { setActiveNext } = useContext(FooterContext);

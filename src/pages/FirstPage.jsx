@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { StepContext } from '../App';
 import styled from 'styled-components';
-import theme from '../styles/theme';
 
 const FirstPage = () => {
   const { step, setStep } = useContext(StepContext);
@@ -12,7 +11,7 @@ const FirstPage = () => {
         <SubTitle>어르신 돌보미</SubTitle>
         <Title>케어코디</Title>
       </CardContainer>
-      <LandingButton onClick={() => setStep(step + 1)}>신청하기</LandingButton>
+      <LandingButton onClick={() => setStep({ ...step, number: 0 })}>신청하기</LandingButton>
     </Container>
   );
 };
@@ -34,20 +33,21 @@ const CardContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   font-size: 2rem;
-  line-height: 3rem;
+  line-height: 1rem;
 `;
 
-const SubTitle = styled.div`
-  color: ${theme.fontColor};
+const SubTitle = styled.h1`
+  font-size: 3rem;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
-const Title = styled.div`
-  color: ${theme.buttonMain.backgroundColor};
+const Title = styled.h2`
+  color: ${({ theme }) => theme.buttonMain.backgroundColor};
   padding-bottom: 40px;
 `;
 
 const LandingButton = styled.button`
-  color: ${theme.buttonMain};
+  color: ${({ theme }) => theme.buttonMain};
   width: 220px;
   height: 60px;
   border-radius: 110px;

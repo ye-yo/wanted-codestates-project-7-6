@@ -12,11 +12,11 @@ function Header({ title, prev = false, close = false }) {
   return (
     <Container>
       <Item>
-        <ArrowIcon prev={prev} onClick={prevStep} />
+        <ArrowIcon prev={prev.toString()} onClick={prevStep} />
       </Item>
       <Item>{title}</Item>
       <Item>
-        <CloseIcon close={close} />
+        <CloseIcon close={close.toString()} />
       </Item>
     </Container>
   );

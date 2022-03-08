@@ -9,7 +9,7 @@ export default function Footer() {
   const moveStep = useCallback(
     (value) => {
       setCurrentStep(({ number }) =>
-        number === TOTAL_STEP - 1
+        number === TOTAL_STEP
           ? { ...currentStep, number: -1 }
           : { ...currentStep, number: currentStep.number + value }
       );

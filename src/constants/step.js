@@ -8,6 +8,7 @@ export const STEPS = Object.freeze([
     stepName: '신청 완료',
     stepTitle: '인증하신 휴대폰 번호로 케어코디 프로필을 받아보실 수 있어요 ☺️',
   },
+  { stepTitle: '📱 신청이 완료되었습니다!' },
 ]);
 
 STEPS.forEach(Object.freeze);

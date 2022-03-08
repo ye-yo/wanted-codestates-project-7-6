@@ -8,12 +8,14 @@ import StepAddress from './pages/StepAddress';
 import FirstPage from './pages/FirstPage';
 import Schedule from './pages/Schedule';
 import StepApplymentBrief from './pages/StepApplymentBrief';
+import FinalPage from './pages/FinalPage';
 
 const step = [
   '돌봄 유형 선택 페이지 개발 중입니다',
   <Schedule />,
   <StepAddress />,
   <StepApplymentBrief />,
+  <FinalPage />,
 ];
 
 export default function App() {

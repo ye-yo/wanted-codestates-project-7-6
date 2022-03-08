@@ -160,9 +160,61 @@ https://user-images.githubusercontent.com/52448114/157107918-80640368-8e02-419e-
 
 ## 예효은
 
-#### 구현한 방법
+공통 컴포넌트인 Step, Footer 및 주소 입력 페이지 구현
 
-#### 어려웠던 점 (에러 핸들링)
+### 구현한 방법
+
+#### Step 컴포넌트
+
+step 컴포넌트는 현재 step에 따라 내용이 다르게 렌더링 될 수 있도록 Context API로 `StepContext`를 생성하여 step 내부의 페이지 컴포넌트에서 제목이나 footer 숨김 여부 등을 처리할 수 있게 하였습니다. 또한 전체 스텝 페이지가 모두 동일한 레이아웃은 아니기 때문에 footer 숨김여부, title 숨김여부를 `hideFooter`, `hideTitle` 로 전달할 수 있게 하여 페이지 별로 레이아웃을 다르게 구성할 수 있게 하였습니다.
+
+```js
+export const StepContext = createContext({
+  currentStep: {
+    totalStep: 0,
+    number: null,
+    stepName: '',
+    stepTitle: '',
+    hideFooter: false,
+    hideTitle: false,
+    hideHeader: false,
+  },
+  setCurrentStep: () => {},
+});
+```
+
+이번 프로젝트에서는 router를 사용하지 않기로 해서 router 없이도 페이지 전환이 가능하도록 구현이 필요했습니다.
+이에 `step`이란 컴포넌트 배열을 만들어서 step 페이지를 순서대로 저장해두고, 렌더링 시에는 `currentStep` state의 number 값에 따라 해당하는 컴포넌트가 렌더링 될 수 있게 하였습니다.
+
+```js
+{
+  !!currentStep.number ? <FirstPage /> : <Step>{step[currentStep.number - 1]}</Step>;
+}
+```
+
+#### Footer 컴포넌트
+
+footer 컴포넌트는 이전, 다음 스텝으로의 페이지 전환과 버튼 활성화/비활성화 기능을 구현해야 했습니다. 이를 위해서 footer 컴포넌트 내부에서 button click 이벤트를 구현하였고 버튼을 활성화 시킬지 여부는 각각의 페이지에서 처리할 수 있도록 하기 위해서 `FooterContext`를 생성하였습니다.
+
+```js
+export const FooterContext = createContext({
+  activeNext: false,
+  setActiveNext: () => {},
+});
+```
+
+#### SearchBox 컴포넌트 및 주소 입력 페이지
+
+`<SearchBox/>` 컴포넌트는 주소 입력 페이지 및 검색 페이지에서 활용되어 컴포넌트로 분리하여 구현했습니다. 다만, 주소 입력 페이지에서는 입력을 막고 클릭시 modal창이 오픈되도록 해야 했기때문에 `readonly` props 및 `handleBoxClick()` 메소드를 전달받아 처리하도록 만들었습니다.
+주소 입력 페이지는 주소 및 상세 주소가 모두 작성되었는지 확인하여 footer의 `activeNext` 값을 true/false로 처리하였습니다. 또한 주소 값이 있을 경우에는 재검색 버튼이 나타나도록 만들었습니다.
+
+### 어려웠던 점 (에러 핸들링)
+
+- 공통 state의 대해 논의 부족 문제
+  : 공통으로 다루는 state에 대한 논의를 부족한 상태로 개발에 들어가서 개발하면서 회의가 거듭되어서 아쉬운 점이 있었습니다. 이를 통해서 개발도 중요하지만 설계 과정도 매우 중요하다는 것을 다시 느끼게 되었습니다.
+
+- `<SearchBox/>` 구현 방식 문제
+  : `<SearchBox/>` 구현 시, 제가 생각하는 구현 방식과 팀원 간의 의견이 상이한 부분이 있었습니다. GitHub PR 기능을 통해서 다양한 의견을 들어볼 수 있었고, 이에 적합한 방식으로 수정을 할 수 있었습니다. 또한 실제 사이트가 존재한다면 최대한 참고하여 기능을 구현하는 것도 좋은 방법이라는 것을 느꼈습니다.
 
 
 ## 이예지

@@ -17,11 +17,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StepContext.Provider value={{ totalStep: TOTAL_STEP, currentStep, setCurrentStep }}>
         <FooterContext.Provider value={{ activeNext, setActiveNext }}>
-          {!currentStep.number ? (
-            <FirstPage />
-          ) : (
-            <Step>{currentStep.number && step[currentStep.number - 1]}</Step>
-          )}
+          {!currentStep.number ? <FirstPage /> : <Step>{step[currentStep.number - 1]}</Step>}
           <GlobalStyle />
         </FooterContext.Provider>
       </StepContext.Provider>

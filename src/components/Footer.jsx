@@ -28,7 +28,7 @@ const FooterWrap = styled.footer`
   position: absolute;
   bottom: 0;
   background-color: white;
-  z-index: 100;
+  z-index: 10;
 `;
 const Button = styled.button`
   height: 100%;

@@ -4,17 +4,8 @@ import styled from 'styled-components';
 import Form from '../components/Form';
 import { Body1, Body3, Body4, Caption2, Caption3 } from '../components/Text';
 import { PHONE_AUTH_CODE_LENGTH } from '../constants/auth';
+import { PageContainer } from '../layouts/Container';
 import { getRandomString } from '../utilities/random';
-
-const PageContainer = styled.section`
-  max-width: 768px;
-  min-width: 360px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 32px;
-`;
 
 const AddressContainer = styled.div`
   display: flex;

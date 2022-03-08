@@ -34,14 +34,8 @@ function AddressModal({ setIsModalOpen }) {
           {data?.length <= 0 ? (
             <FirstContent>{FIRST_EXPLANATION}</FirstContent>
           ) : (
-            data.map(({ roadAddr, jibunAddr, zipNo }, idx) => (
-              <AddressContent
-                roadAddress={roadAddr}
-                jibunAddress={jibunAddr}
-                roadCode={zipNo}
-                key={idx}
-                setIsModalOpen={setIsModalOpen}
-              />
+            data.map((value, idx) => (
+              <AddressContent value={value} key={idx} setIsModalOpen={setIsModalOpen} />
             ))
           )}
         </ContentBox>

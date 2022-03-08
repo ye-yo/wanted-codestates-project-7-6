@@ -8,6 +8,7 @@ import StepAddress from './pages/StepAddress';
 import FirstPage from './pages/FirstPage';
 import Schedule from './pages/Schedule';
 import StepApplymentBrief from './pages/StepApplymentBrief';
+import AddressProvider from './context/AddressContext';
 
 const step = [
   '돌봄 유형 선택 페이지 개발 중입니다',
@@ -24,7 +25,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StepContext.Provider value={{ totalStep: TOTAL_STEP, currentStep, setCurrentStep }}>
         <FooterContext.Provider value={{ activeNext, setActiveNext }}>
-          {currentStep.number < 0 ? <FirstPage /> : <Step>{step[currentStep.number]}</Step>}
+          <AddressProvider>
+            {currentStep.number < 0 ? <FirstPage /> : <Step>{step[currentStep.number]}</Step>}
+          </AddressProvider>
           <GlobalStyle />
         </FooterContext.Provider>
       </StepContext.Provider>

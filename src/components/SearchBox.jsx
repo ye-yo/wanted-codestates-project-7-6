@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Search } from '../assets/search_icon.svg';
 
-const SearchInput = ({ readOnly, placeholder, value = '', onChange }) => {
+const SearchInput = ({ readOnly, handleBoxClick, placeholder, value = '', onChange }) => {
   return (
-    <InputBox readOnly>
-      <Search style={{ cursor: 'pointer' }} onClick={() => !readOnly} />
+    <InputBox readOnly onClick={() => readOnly && handleBoxClick()}>
+      <Search style={{ cursor: 'pointer' }} />
       {readOnly ? (
         <Text isExist={value}>{value || placeholder}</Text>
       ) : (
@@ -24,8 +24,8 @@ const InputBox = styled.div`
     flex: 1;
     outline: none;
     font-size: 14px;
-    padding: 1px 2px;
     line-height: 16px;
+    padding: 1px 2px;
   }
 
   ${({ theme, readOnly }) => css`

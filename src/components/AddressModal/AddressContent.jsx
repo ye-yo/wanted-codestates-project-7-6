@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function AddressContent({ roadAddress, jibunAddress, roadCode }) {
+function AddressContent({ roadAddress, jibunAddress, roadCode, setIsModalOpen }) {
   return (
-    <Content>
+    <Content onClick={() => setIsModalOpen(false)}>
       <Left.Content>
         <Left.Top>{roadAddress}</Left.Top>
         <Left.Bottom>

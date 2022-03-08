@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import { FooterContext, StepContext } from '../App';
 import SearchBox from '../components/SearchBox';
 import styled from 'styled-components';
+import AddressModal from '../components/AddressModal/AddressModal';
 
 export default function StepAddress() {
   const { currentStep, setCurrentStep } = useContext(StepContext);
@@ -29,7 +30,7 @@ export default function StepAddress() {
   };
   return (
     <div>
-      {isModalOpen && 'modal'}
+      {isModalOpen && <AddressModal setIsModalOpen={setIsModalOpen} />}
       <SearchBox
         readOnly
         handleBoxClick={openSearchModal}

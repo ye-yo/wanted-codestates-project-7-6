@@ -7,7 +7,7 @@ import AddressContent from './AddressContent';
 import getJusoAPI from '../../api/getJusoAPI';
 import ErrorPage from '../../pages/ErrorPage';
 
-function AddressPopup() {
+function AddressModal({ setIsModalOpen }) {
   const [data, setData] = useState([]);
   const [keyword, setKeyword] = useState('');
 
@@ -23,7 +23,7 @@ function AddressPopup() {
   if (data === 'error') return <ErrorPage />;
   return (
     <SearchPopup>
-      <Header title="주소검색" close />
+      <Header title="주소검색" close setIsModalOpen={setIsModalOpen} />
       <SearchBox
         placeholder="주소 또는 건물명으로 검색"
         value={keyword}
@@ -40,6 +40,7 @@ function AddressPopup() {
                 jibunAddress={jibunAddr}
                 roadCode={zipNo}
                 key={idx}
+                setIsModalOpen={setIsModalOpen}
               />
             ))
           )}
@@ -52,17 +53,16 @@ function AddressPopup() {
   );
 }
 
-export default AddressPopup;
+export default AddressModal;
 
 const SearchPopup = styled.div`
-  opacity: 1;
-  box-sizing: border-box;
-  align-items: stretch;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
-  padding-top: 32px;
-  padding-bottom: 32px;
-  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => props.theme.buttonWhite.backgroundColor};
+  left: 0;
+  top: 0;
+  z-index: 20;
 `;
 
 const ResultBox = styled.div`

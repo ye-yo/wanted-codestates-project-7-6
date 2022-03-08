@@ -45,7 +45,6 @@ const ContentWrap = styled.main`
   overflow-y: auto;
   color: #5b5555;
   ${({ theme }) => css`
-    padding-top: ${theme.headerHeight};
     padding-bottom:${theme.footerHeight};
    }`}
 `;

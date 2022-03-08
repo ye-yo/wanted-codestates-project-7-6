@@ -1,19 +1,21 @@
+import axios from 'axios';
+import { JUSO_URL } from '../constants/addressPopup';
 async function getJusoAPI(keyword) {
   const params = {
-    keyword: keyword,
+    keyword,
     confmKey: process.env.REACT_APP_JUSO_API,
     resultType: 'json',
-    countPerPage: 50,
-    currentPage: 1,
   };
-  const url = new URL('https://www.juso.go.kr/addrlink/addrLinkApi.do');
-  url.search = new URLSearchParams(params).toString();
 
-  const response = await fetch(url);
-  const data = await response.json();
-  const result = await data.results.juso;
-
-  return result;
+  try {
+    const response = await axios.get(JUSO_URL, { params: params });
+    const result = await response.data.results.juso;
+    if (result !== null) {
+      return result;
+    }
+  } catch (error) {
+    return 'error';
+  }
 }
 
 export default getJusoAPI;

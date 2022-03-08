@@ -36,6 +36,7 @@ const Content = styled.div`
   border-bottom: 1px solid rgb(246, 246, 246);
   width: 100%;
   height: auto;
+  cursor: pointer;
 `;
 
 const Left = {

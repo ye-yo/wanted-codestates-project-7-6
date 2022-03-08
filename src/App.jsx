@@ -4,8 +4,9 @@ import GlobalStyle from './styles/global';
 import theme from './styles/theme';
 import Step from './components/Step';
 import { TOTAL_STEP, TEST_STEP } from './constants/step';
+import ErrorPage from './pages/ErrorPage';
 
-const step = ['첫 번째 STEP', 'Stpe2', '<Step3 />'];
+const step = [<ErrorPage />, 'Stpe2', '<Step3 />'];
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState(TEST_STEP);

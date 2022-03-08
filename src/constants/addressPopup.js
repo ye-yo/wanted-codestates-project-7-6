@@ -9,3 +9,5 @@ export const BOTTOM_EXPLANATION = `
 · 2016년 8월 1일부터는 5가지 우편번호 사용이 의무화됩니다.\n
 도로명주소 + 5자리 우편번호로 등록하셔서 서비스 이용에 불편함이 없도록 하시길 바랍니다.
 `;
+
+export const JUSO_URL = 'https://www.juso.go.kr/addrlink/addrLinkApi.do';

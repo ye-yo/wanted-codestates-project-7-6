@@ -5,6 +5,7 @@ import SearchBox from '../SearchBox';
 import { FIRST_EXPLANATION, BOTTOM_EXPLANATION } from '../../constants/addressPopup';
 import AddressContent from './AddressContent';
 import getJusoAPI from '../../api/getJusoAPI';
+import ErrorPage from '../../pages/ErrorPage';
 
 function AddressPopup() {
   const [data, setData] = useState([]);
@@ -13,12 +14,13 @@ function AddressPopup() {
   const handleAddressOnchange = (e) => {
     setKeyword(e.target.value);
     getJusoAPI(e.target.value).then((res) => {
-      if (res !== null) {
+      if (res !== undefined) {
         setData(res);
       }
     });
   };
 
+  if (data === 'error') return <ErrorPage />;
   return (
     <SearchPopup>
       <Header title="주소검색" close />
@@ -29,11 +31,16 @@ function AddressPopup() {
       />
       <ResultBox>
         <ContentBox>
-          {data.length <= 0 ? (
+          {data?.length <= 0 ? (
             <FirstContent>{FIRST_EXPLANATION}</FirstContent>
           ) : (
-            data.map(({ roadAddr, jibunAddr, zipNo }) => (
-              <AddressContent roadAddress={roadAddr} jibunAddress={jibunAddr} roadCode={zipNo} />
+            data.map(({ roadAddr, jibunAddr, zipNo }, idx) => (
+              <AddressContent
+                roadAddress={roadAddr}
+                jibunAddress={jibunAddr}
+                roadCode={zipNo}
+                key={idx}
+              />
             ))
           )}
         </ContentBox>
@@ -50,10 +57,8 @@ export default AddressPopup;
 const SearchPopup = styled.div`
   opacity: 1;
   box-sizing: border-box;
-  -webkit-box-align: stretch;
   align-items: stretch;
   flex-flow: column nowrap;
-  -webkit-box-pack: start;
   justify-content: flex-start;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -64,10 +69,8 @@ const ResultBox = styled.div`
   display: flex;
   opacity: 1;
   box-sizing: border-box;
-  -webkit-box-align: stretch;
   align-items: stretch;
   flex-flow: column nowrap;
-  -webkit-box-pack: start;
   justify-content: flex-start;
   background-color: rgb(255, 255, 255);
   margin-top: 0px;
@@ -79,10 +82,8 @@ const ResultBox = styled.div`
 const ContentBox = styled.div`
   opacity: 1;
   box-sizing: border-box;
-  -webkit-box-align: stretch;
   align-items: stretch;
   flex-flow: column nowrap;
-  -webkit-box-pack: start;
   justify-content: flex-start;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -102,10 +103,8 @@ const Bottom = {
   Box: styled.div`
     opacity: 1;
     box-sizing: border-box;
-    -webkit-box-align: stretch;
     align-items: stretch;
     flex-flow: column nowrap;
-    -webkit-box-pack: start;
     justify-content: flex-start;
     padding: 16px;
     display: block;

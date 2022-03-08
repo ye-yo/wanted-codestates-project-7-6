@@ -1,48 +1,14 @@
-// import { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Search } from '../assets/search_icon.svg';
 
-const SearchInput = ({ readOnly, handleBoxClick, placeholder, value = '', onChange }) => {
-  // const handleInputChange = useCallback(
-  //   (e) => {
-  //     setValue(e.target.value);
-  //   },
-  //   [setValue]
-  // );
-
-  // const handleKeyPress = useCallback(
-  //   (e) => {
-  //     if (e.which === 13) {
-  //       handleSearch(e.target.value);
-  //     }
-  //   },
-  //   [search]
-  // );
-
-  // const handleSearch = useCallback(
-  //   (keyword) => {
-  //     if (keyword.replace(/\s/gi, '') !== '') {
-  //       search(keyword.trim());
-  //     }
-  //   },
-  //   [search]
-  // );
-  // const handleClick = useCallback(() => {
-  //   handleSearch(value);
-  // }, [value]);
-
+const SearchInput = ({ readOnly, placeholder, value = '', onChange }) => {
   return (
-    <InputBox readOnly onClick={() => readOnly && handleBoxClick()}>
+    <InputBox readOnly>
       <Search style={{ cursor: 'pointer' }} onClick={() => !readOnly} />
       {readOnly ? (
         <Text isExist={value}>{value || placeholder}</Text>
       ) : (
-        <Input
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          // onKeyPress={handleKeyPress}
-        ></Input>
+        <Input placeholder={placeholder} value={value} onChange={onChange} />
       )}
     </InputBox>
   );

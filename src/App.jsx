@@ -4,6 +4,7 @@ import GlobalStyle from './styles/global';
 import theme from './styles/theme';
 import Step from './components/Step';
 import { TOTAL_STEP, TEST_STEP } from './constants/step';
+import FirstPage from './pages/FirstPage';
 
 const step = ['첫 번째 STEP', 'Stpe2', '<Step3 />'];
 
@@ -12,7 +13,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StepContext.Provider value={{ totalStep: TOTAL_STEP, currentStep, setCurrentStep }}>
-        <Step>{currentStep.number && step[currentStep.number - 1]}</Step>
+        {!currentStep.number ? <FirstPage /> : <Step>{step[currentStep.number - 1]}</Step>}
         <GlobalStyle />
       </StepContext.Provider>
     </ThemeProvider>

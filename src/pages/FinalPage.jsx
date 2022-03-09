@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { StepContext } from '../App';
 import Button from '../components/Button';
@@ -12,6 +12,11 @@ const FinishButton = styled(Button)`
 
 export default function FinalPage() {
   const { setCurrentStep } = useContext(StepContext);
+
+  useEffect(() => {
+    setCurrentStep((prev) => ({ ...prev, hideFooter: true }));
+    return () => setCurrentStep((prev) => ({ ...prev, hideFooter: false }));
+  }, [setCurrentStep]);
 
   return (
     <PageContainer>

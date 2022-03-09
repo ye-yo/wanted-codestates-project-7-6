@@ -8,13 +8,9 @@ import StepAddress from './pages/StepAddress';
 import FirstPage from './pages/FirstPage';
 import Schedule from './pages/Schedule';
 import StepApplymentBrief from './pages/StepApplymentBrief';
+import StepSelectType from './pages/StepSelectType';
 
-const step = [
-  '돌봄 유형 선택 페이지 개발 중입니다',
-  <Schedule />,
-  <StepAddress />,
-  <StepApplymentBrief />,
-];
+const step = [<StepSelectType />, <Schedule />, <StepAddress />, <StepApplymentBrief />];
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState({ number: -1 });

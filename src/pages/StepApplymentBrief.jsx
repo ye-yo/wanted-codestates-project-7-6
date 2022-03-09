@@ -9,7 +9,7 @@ import { PageContainer } from '../layouts/Container';
 import { getRandomString } from '../utilities/random';
 import { FooterContext } from '../context/FooterContext';
 import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
-import { formatDateKorean, formatTime } from '../utilities/date';
+import { formatDateKorean } from '../utilities/date';
 
 const AddressContainer = styled.div`
   display: flex;
@@ -77,9 +77,9 @@ export default function StepApplymentBrief() {
   }, [applymentBrief?.schedule]);
 
   useEffect(() => {
-    if (isAuthorized) {
-      // setActiveNext(true);
-    }
+    // if (isAuthorized) {
+    setActiveNext(true);
+    // }
   }, [isAuthorized, setActiveNext]);
 
   const sendAuthMessage = async (phoneNumber) => {

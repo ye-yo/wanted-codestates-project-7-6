@@ -1,9 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { StepContext } from '../context/StepContext';
+import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
 
 const FirstPage = () => {
   const { currentStep, setCurrentStep } = useContext(StepContext);
+  const { setApplymentBrief } = useContext(ApplymentBriefContext);
+
+  useEffect(() => {
+    setApplymentBrief({});
+  }, [setApplymentBrief]);
+
   return (
     <Container>
       <CardContainer>

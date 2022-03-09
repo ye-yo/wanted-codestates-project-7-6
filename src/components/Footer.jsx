@@ -16,7 +16,7 @@ export default function Footer() {
       );
       setActiveNext(value === -1);
     },
-    [currentStep, setCurrentStep]
+    [currentStep, setCurrentStep, setActiveNext]
   );
   return (
     <FooterWrap>

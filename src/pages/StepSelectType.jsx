@@ -8,7 +8,7 @@ import { css } from 'styled-components';
 export default function SelectTimeType({ type }) {
   const { setActiveNext } = useContext(FooterContext);
   const { applymentBrief, setApplymentBrief } = useContext(ApplymentBriefContext);
-  const { workType } = useMemo(() => applymentBrief, [applymentBrief?.workType]);
+  const workType = useMemo(() => applymentBrief?.workType || null, [applymentBrief?.workType]);
   const [isAlldayTime, setIsAlldayTime] = useState(workType ? workType === 'DAY' : false);
   const [isPartTime, setIsPartTime] = useState(workType ? workType === 'TIME' : false);
 

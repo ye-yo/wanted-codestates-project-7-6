@@ -4,10 +4,9 @@ import { timeList, careTimeList } from '../temp/staticData';
 import SelectBox from '../components/SelectBox';
 import DateForm from '../components/DateForm';
 import ScheduleModal from '../components/ScheduleModal';
-import DateContext, { DateProvider } from '../context/DateContext';
+import { DateProvider } from '../context/DateContext';
 import { FooterContext } from '../context/FooterContext';
 import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
-import { formatDate, formatTime } from '../utilities/date';
 
 export default function StepSchedule() {
   const { setActiveNext } = useContext(FooterContext);

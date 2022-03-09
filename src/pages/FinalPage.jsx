@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { StepContext } from '../App';
+import { StepContext } from '../context/StepContext';
 import Button from '../components/Button';
 import { Body4 } from '../components/Text';
 import { PageContainer } from '../layouts/Container';

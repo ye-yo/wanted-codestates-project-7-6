@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { FooterContext } from '../App';
+import { FooterContext } from '../context/FooterContext';
 
 const StepType = () => {
   const { setActiveNext } = useContext(FooterContext);

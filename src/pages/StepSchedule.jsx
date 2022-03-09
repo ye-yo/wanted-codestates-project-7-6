@@ -5,7 +5,7 @@ import SelectBox from '../components/SelectBox';
 import DateForm from '../components/DateForm';
 import ScheduleModal from '../components/ScheduleModal';
 import { DateProvider } from '../context/DateContext';
-import { FooterContext } from '../App';
+import { FooterContext } from '../context/FooterContext';
 
 export default function StepSchedule() {
   const { setActiveNext } = useContext(FooterContext);

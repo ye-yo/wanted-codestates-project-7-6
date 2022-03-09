@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Body3 } from './Text';
 
 const variants = {
   primary: css`
@@ -26,14 +25,9 @@ const DefaultButton = styled.button`
   font-weight: 700;
   line-height: 20px;
   background-color: transparent;
-  ${Body3.css}
   ${({ variant }) => variants[variant]};
 `;
 
-export default function Button({ variant = 'primary', children, className }) {
-  return (
-    <DefaultButton className={className} variant={variant}>
-      {children}
-    </DefaultButton>
-  );
+export default function Button({ variant = 'primary', ...props }) {
+  return <DefaultButton variant={variant} {...props} />;
 }

@@ -15,7 +15,7 @@ const step = [
 
 function Router() {
   const { currentStep } = useContext(StepContext);
-  return <>{currentStep.number < 0 ? <FirstPage /> : <Step>{step[currentStep.number]}</Step>};</>;
+  return currentStep.number < 0 ? <FirstPage /> : <Step>{step[currentStep.number]}</Step>;
 }
 
 export default Router;

@@ -4,15 +4,16 @@ import GlobalStyle from './styles/global';
 import theme from './styles/theme';
 import Step from './components/Step';
 import { TOTAL_STEP } from './constants/step';
-import StepAddress from './pages/StepAddress';
 import FirstPage from './pages/FirstPage';
-import Schedule from './pages/Schedule';
+import StepSchedule from './pages/StepSchedule';
+import StepAddress from './pages/StepAddress';
 import StepApplymentBrief from './pages/StepApplymentBrief';
+import StepSelectType from './pages/StepSelectType';
 import FinalPage from './pages/FinalPage';
 
 const step = [
-  '돌봄 유형 선택 페이지 개발 중입니다',
-  <Schedule />,
+  <StepSelectType />,
+  <StepSchedule />,
   <StepAddress />,
   <StepApplymentBrief />,
   <FinalPage />,

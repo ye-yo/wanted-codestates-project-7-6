@@ -6,13 +6,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Spoqa Han Sans Neo';
   }
 
-  #root{
-    margin: 0 auto;
-    max-width: 767px;
-    min-height: 100%;
-    position: relative;
-    background: #fff;
-  }
   html, body {
     margin: 0;
     padding: 0;
@@ -21,9 +14,17 @@ const GlobalStyle = createGlobalStyle`
     color: #5B5555;
     font-size: 14px;
     background: #5B5555;
-    overflow: hidden;
   }
 
+  #root{
+    margin: 0 auto;
+    max-width: 767px;
+    height: 100%;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  
   button,a{
     cursor: pointer;
   }

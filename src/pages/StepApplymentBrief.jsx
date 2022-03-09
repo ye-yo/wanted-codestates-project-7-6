@@ -46,6 +46,7 @@ const FormContainer = styled.div`
   flex-direction: column;
   align-items: stretch;
   gap: 8px;
+  padding-bottom: 32px;
 `;
 
 const Separator = styled.div`

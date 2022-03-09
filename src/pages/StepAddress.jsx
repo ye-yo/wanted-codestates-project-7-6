@@ -22,10 +22,11 @@ export default function StepAddress() {
 
   useEffect(() => {
     if (addressDetail.trim() && address) {
+      jusoData.addressDetail = addressDetail;
       setActiveNext(true);
       setApplymentBrief((data) => ({
         ...data,
-        address: { ...jusoData, addressDetail },
+        address: jusoData,
       }));
     } else {
       setActiveNext(false);

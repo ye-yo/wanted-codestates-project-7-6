@@ -1,22 +1,17 @@
-import React from 'react';
-import { FooterContext, StepContext } from '../App';
+import React, { useEffect } from 'react';
+import { FooterContext } from '../App';
 import styled from 'styled-components';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { css } from 'styled-components';
 
 export default function SelectTimeType({ type }) {
-  const { currentStep, setCurrentStep } = useContext(StepContext);
   const { setActiveNext } = useContext(FooterContext);
   const [isPartTime, setIsPartTime] = useState(false);
   const [isAlldayTime, setIsAlldayTime] = useState(false);
 
   useEffect(() => {
-    setCurrentStep({
-      ...currentStep,
-      stepName: '돌봄 유형',
-      stepTitle: '돌봄 유형을 설정해주세요 ',
-    });
-  }, []);
+    setActiveNext(isAlldayTime || isPartTime);
+  }, [isAlldayTime, isPartTime, setActiveNext]);
 
   const timeClick = () => {
     setIsPartTime(!isPartTime);

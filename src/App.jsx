@@ -5,13 +5,12 @@ import theme from './styles/theme';
 import Step from './components/Step';
 import { TOTAL_STEP } from './constants/step';
 import FirstPage from './pages/FirstPage';
-import StepType from './pages/StepType';
 import StepSchedule from './pages/StepSchedule';
 import StepAddress from './pages/StepAddress';
 import StepApplymentBrief from './pages/StepApplymentBrief';
 import StepSelectType from './pages/StepSelectType';
 
-const step = [<StepSelectType />, <Schedule />, <StepAddress />, <StepApplymentBrief />];
+const step = [<StepSelectType />, <StepSchedule />, <StepAddress />, <StepApplymentBrief />];
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState({ number: -1 });

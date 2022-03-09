@@ -6,9 +6,7 @@ import AddressModal from '../components/AddressModal/AddressModal';
 
 export default function StepAddress() {
   const { setActiveNext } = useContext(FooterContext);
-  const [keyword, setKeyword] = useState('');
   const [detail, setDetail] = useState('');
-  const [address, setAddress] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openSearchModal = useCallback(() => {
@@ -17,7 +15,7 @@ export default function StepAddress() {
 
   const handleInput = (e) => {
     setDetail(e.target.value);
-    setActiveNext(e.target.value.trim() && address);
+    setActiveNext(e.target.value.trim());
   };
   return (
     <div>
@@ -25,7 +23,6 @@ export default function StepAddress() {
       <SearchBox
         readOnly
         handleBoxClick={openSearchModal}
-        value={keyword}
         placeholder="주소 또는 건물명으로 검색"
       />
       <BorderBox value={detail} onChange={handleInput} placeholder="상세 주소를 입력해주세요" />

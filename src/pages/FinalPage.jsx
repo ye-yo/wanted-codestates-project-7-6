@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { StepContext } from '../App';
 import Button from '../components/Button';
 import { Body4 } from '../components/Text';
 import { PageContainer } from '../layouts/Container';
@@ -9,6 +11,8 @@ const FinishButton = styled(Button)`
 `;
 
 export default function FinalPage() {
+  const { setCurrentStep } = useContext(StepContext);
+
   return (
     <PageContainer>
       <Body4>
@@ -16,7 +20,12 @@ export default function FinalPage() {
         문자로 알림을 보내드립니다. <br />
         케어코디님의 지원 알림을 기다려주세요!
       </Body4>
-      <FinishButton variant="outline">끝내기</FinishButton>
+      <FinishButton
+        variant="outline"
+        onClick={() => setCurrentStep((prev) => ({ ...prev, number: -1 }))}
+      >
+        끝내기
+      </FinishButton>
     </PageContainer>
   );
 }

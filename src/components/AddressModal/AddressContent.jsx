@@ -103,6 +103,7 @@ const Left = {
     margin-right: 8px;
     border-radius: 16px;
     width: 35px;
+    min-width: 35px;
     height: 22px;
   `,
   Jibun: styled.span`

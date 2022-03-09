@@ -38,14 +38,14 @@ export default function Step({ children }) {
 const StepWrap = styled.div`
   width: 100%;
   height: 100%;
-  overflow-y: auto;
 `;
 
 const ContentWrap = styled.main`
   width: 100%;
   padding: 16px;
-  min-height: ${({ theme }) => `calc(100% - ${theme.headerHeight})`};
+  height: ${({ theme }) => `calc(100% - ${theme.headerHeight})`};
   color: #5b5555;
+  overflow-y: auto;
   ${({ theme }) => css`
     padding-bottom:${theme.footerHeight};
    }`}

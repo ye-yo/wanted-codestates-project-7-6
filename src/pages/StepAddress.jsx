@@ -8,30 +8,31 @@ import { FooterContext } from '../context/FooterContext';
 export default function StepAddress() {
   const { setActiveNext } = useContext(FooterContext);
   const { jusoData } = useContext(AddressContext);
-  const [keyword, setKeyword] = useState('');
+  const [address, setAddress] = useState('');
   const [detail, setDetail] = useState('');
-  const [address] = useState();
-  // const [address, setAddress] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useMemo(() => setKeyword(jusoData?.roadAddress), [jusoData?.roadAddress]);
-
+  useMemo(() => setAddress(jusoData?.roadAddress), [jusoData?.roadAddress]);
   const openSearchModal = useCallback(() => {
     setIsModalOpen(true);
   }, [setIsModalOpen]);
 
   const handleInput = (e) => {
     setDetail(e.target.value);
-    setActiveNext(e.target.value.trim());
+    setActiveNext(e.target.value.trim() && address);
   };
   return (
     <>
       {isModalOpen && <AddressModal setIsModalOpen={setIsModalOpen} />}
-      <SearchBox
-        readOnly
-        handleBoxClick={openSearchModal}
-        placeholder="주소 또는 건물명으로 검색"
-      />
+      <SearchWrap>
+        <SearchBox
+          readOnly
+          handleBoxClick={openSearchModal}
+          value={address}
+          placeholder="주소 또는 건물명으로 검색"
+        />
+        <ButtonResearch onClick={openSearchModal}>재검색</ButtonResearch>
+      </SearchWrap>
       <BorderBox value={detail} onChange={handleInput} placeholder="상세 주소를 입력해주세요" />
     </>
   );
@@ -42,5 +43,24 @@ const BorderBox = styled.input`
   width: 100%;
   font-size: 14px;
   line-height: 18px;
-  ${(props) => props.theme.inputBorder}
+  ${({ theme }) => theme.inputBorder}
+`;
+
+const SearchWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  opacity: 1;
+  padding-top: 32px;
+  display: flex;
+  > div {
+    flex: 1;
+  }
+`;
+
+const ButtonResearch = styled.button`
+  ${({ theme }) => theme.buttonMain}
+  width: 18.6%;
+  margin-left: 8px;
+  font-size: 1.2rem;
 `;

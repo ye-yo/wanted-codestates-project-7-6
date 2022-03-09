@@ -3,7 +3,7 @@ import { ReactComponent as Search } from '../assets/search_icon.svg';
 
 const SearchInput = ({ readOnly, handleBoxClick, placeholder, value = '', onChange }) => {
   return (
-    <InputBox readOnly onClick={() => readOnly && handleBoxClick()}>
+    <InputBox readOnly={readOnly} onClick={() => readOnly && handleBoxClick()}>
       <Search style={{ cursor: 'pointer' }} />
       {readOnly ? (
         <Text isExist={value}>{value || placeholder}</Text>

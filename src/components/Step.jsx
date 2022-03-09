@@ -19,8 +19,8 @@ export default function Step({ children }) {
             <>
               <StepProgress>
                 {STEPS[number].stepName && [
-                  <StepName>{STEPS[number].stepName}</StepName>,
-                  <StepNumber>
+                  <StepName key="stepName">{STEPS[number].stepName}</StepName>,
+                  <StepNumber key="stepNumber">
                     <b>{number + 1}</b> / {totalStep}
                   </StepNumber>,
                 ]}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FooterContext } from '../App';
+import { FooterContext } from '../context/FooterContext';
 import styled from 'styled-components';
 import { useContext, useState } from 'react';
 import { css } from 'styled-components';

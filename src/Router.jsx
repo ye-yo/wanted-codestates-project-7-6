@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
 import Step from './components/Step';
+import StepSelectType from './pages/StepSelectType';
 import StepAddress from './pages/StepAddress';
 import FirstPage from './pages/FirstPage';
-import Schedule from './pages/Schedule';
+import StepSchedule from './pages/StepSchedule';
+import FinalPage from './pages/FinalPage';
 import StepApplymentBrief from './pages/StepApplymentBrief';
 import { StepContext } from './context/StepContext';
 
 const step = [
-  '돌봄 유형 선택 페이지 개발 중입니다',
-  <Schedule />,
+  <StepSelectType />,
+  <StepSchedule />,
   <StepAddress />,
   <StepApplymentBrief />,
+  <FinalPage />,
 ];
 
 function Router() {

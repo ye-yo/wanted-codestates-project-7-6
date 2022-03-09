@@ -4,9 +4,10 @@ import GlobalStyle from './styles/global';
 import theme from './styles/theme';
 import Step from './components/Step';
 import { TOTAL_STEP } from './constants/step';
-import StepAddress from './pages/StepAddress';
 import FirstPage from './pages/FirstPage';
-import Schedule from './pages/Schedule';
+import StepType from './pages/StepType';
+import StepSchedule from './pages/StepSchedule';
+import StepAddress from './pages/StepAddress';
 import StepApplymentBrief from './pages/StepApplymentBrief';
 import StepSelectType from './pages/StepSelectType';
 

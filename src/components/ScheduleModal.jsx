@@ -1,20 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import CalenderView from './Calendar/CalenderView';
-import { DateProvider } from '../context/DateContext';
 import { ReactComponent as CloseIcon } from '../assets/close_icon.svg';
 
-const ScheduleModal = () => {
+const ScheduleModal = ({ onClose }) => {
   return (
-    <DateProvider>
-      <ScheduleModalStyled>
-        <Header>
-          <p>돌봄 날짜 선택</p>
-          <CloseButton />
-        </Header>
-        <CalenderView />
-      </ScheduleModalStyled>
-    </DateProvider>
+    <ScheduleModalStyled>
+      <Header>
+        <p>돌봄 날짜 선택</p>
+        <CloseButton onClick={onClose} />
+      </Header>
+      <CalenderView />
+    </ScheduleModalStyled>
   );
 };
 
@@ -23,6 +20,13 @@ const ScheduleModalStyled = styled.div`
   flex-direction: column;
   align-items: center;
   font-weight: bold;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
 `;
 
 const Header = styled.div`

@@ -92,6 +92,8 @@ const DateProvider = ({ children }) => {
 
   const getCurrentDate = (order, day) => new Date(year[order], month[order], day);
 
+  const getDateKorean = (date) => `${date?.getMonth() + 1}월 ${date?.getDate()}일`;
+
   const isSameDate = (date1, date2) => date1?.toDateString() === date2?.toDateString();
 
   useEffect(() => {
@@ -115,6 +117,7 @@ const DateProvider = ({ children }) => {
     onSelectDate,
     getWeekElements,
     getCurrentDate,
+    getDateKorean,
     isSameDate,
   };
 

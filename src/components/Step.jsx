@@ -8,6 +8,7 @@ import { StepContext } from '../context/StepContext';
 export default function Step({ children }) {
   const { currentStep, totalStep } = useContext(StepContext);
   const { number } = useMemo(() => currentStep, [currentStep]);
+
   return (
     number >= 0 && (
       <StepWrap>
@@ -17,10 +18,12 @@ export default function Step({ children }) {
           {!currentStep.hideTitle && (
             <>
               <StepProgress>
-                <StepName>{STEPS[number].stepName}</StepName>
-                <StepNumber>
-                  <b>{number + 1}</b> / {totalStep}
-                </StepNumber>
+                {STEPS[number].stepName && [
+                  <StepName>{STEPS[number].stepName}</StepName>,
+                  <StepNumber>
+                    <b>{number + 1}</b> / {totalStep}
+                  </StepNumber>,
+                ]}
               </StepProgress>
               <StepTitle>{STEPS[number].stepTitle}</StepTitle>
             </>

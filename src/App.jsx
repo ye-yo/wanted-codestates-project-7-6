@@ -9,8 +9,15 @@ import StepSchedule from './pages/StepSchedule';
 import StepAddress from './pages/StepAddress';
 import StepApplymentBrief from './pages/StepApplymentBrief';
 import StepSelectType from './pages/StepSelectType';
+import FinalPage from './pages/FinalPage';
 
-const step = [<StepSelectType />, <StepSchedule />, <StepAddress />, <StepApplymentBrief />];
+const step = [
+  <StepSelectType />,
+  <StepSchedule />,
+  <StepAddress />,
+  <StepApplymentBrief />,
+  <FinalPage />,
+];
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState({ number: -1 });

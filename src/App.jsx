@@ -5,6 +5,7 @@ import theme from './styles/theme';
 import AddressProvider from './context/AddressContext';
 import StepProvider from './context/StepContext';
 import FooterProvider from './context/FooterContext';
+import ApplymentBriefProvider from './context/ApplymentBriefContext';
 import Router from './Router';
 
 const AppProvider = ({ contexts, children }) =>
@@ -18,7 +19,9 @@ const AppProvider = ({ contexts, children }) =>
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <AppProvider contexts={[StepProvider, FooterProvider, AddressProvider]}>
+      <AppProvider
+        contexts={[StepProvider, FooterProvider, AddressProvider, ApplymentBriefProvider]}
+      >
         <Router />
         <GlobalStyle />
       </AppProvider>

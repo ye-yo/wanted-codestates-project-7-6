@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { StepContext } from '../App';
 import styled from 'styled-components';
+import { StepContext } from '../context/StepContext';
 
 const FirstPage = () => {
   const { currentStep, setCurrentStep } = useContext(StepContext);
-
   return (
     <Container>
       <CardContainer>

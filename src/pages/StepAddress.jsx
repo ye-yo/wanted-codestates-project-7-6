@@ -1,13 +1,20 @@
-import { useContext, useState, useCallback } from 'react';
-import { FooterContext } from '../App';
+import { useContext, useState, useCallback, useMemo } from 'react';
 import SearchBox from '../components/SearchBox';
 import styled from 'styled-components';
 import AddressModal from '../components/AddressModal/AddressModal';
+import { AddressContext } from '../context/AddressContext';
+import { FooterContext } from '../context/FooterContext';
 
 export default function StepAddress() {
   const { setActiveNext } = useContext(FooterContext);
+  const { jusoData } = useContext(AddressContext);
+  const [keyword, setKeyword] = useState('');
   const [detail, setDetail] = useState('');
+  const [address] = useState();
+  // const [address, setAddress] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useMemo(() => setKeyword(jusoData?.roadAddress), [jusoData?.roadAddress]);
 
   const openSearchModal = useCallback(() => {
     setIsModalOpen(true);
@@ -18,7 +25,7 @@ export default function StepAddress() {
     setActiveNext(e.target.value.trim());
   };
   return (
-    <div>
+    <>
       {isModalOpen && <AddressModal setIsModalOpen={setIsModalOpen} />}
       <SearchBox
         readOnly
@@ -26,7 +33,7 @@ export default function StepAddress() {
         placeholder="주소 또는 건물명으로 검색"
       />
       <BorderBox value={detail} onChange={handleInput} placeholder="상세 주소를 입력해주세요" />
-    </div>
+    </>
   );
 }
 

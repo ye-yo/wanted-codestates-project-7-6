@@ -1,52 +1,27 @@
-import { createContext, useState } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/global';
 import theme from './styles/theme';
-import Step from './components/Step';
-import { TOTAL_STEP } from './constants/step';
-import FirstPage from './pages/FirstPage';
-import StepSchedule from './pages/StepSchedule';
-import StepAddress from './pages/StepAddress';
-import StepApplymentBrief from './pages/StepApplymentBrief';
-import StepSelectType from './pages/StepSelectType';
-import FinalPage from './pages/FinalPage';
+import AddressProvider from './context/AddressContext';
+import StepProvider from './context/StepContext';
+import FooterProvider from './context/FooterContext';
+import Router from './Router';
 
-const step = [
-  <StepSelectType />,
-  <StepSchedule />,
-  <StepAddress />,
-  <StepApplymentBrief />,
-  <FinalPage />,
-];
-
+const AppProvider = ({ contexts, children }) =>
+  contexts.reduce(
+    (prev, context) =>
+      React.createElement(context, {
+        children: prev,
+      }),
+    children
+  );
 export default function App() {
-  const [currentStep, setCurrentStep] = useState({ number: -1 });
-  const [activeNext, setActiveNext] = useState(false);
-
   return (
     <ThemeProvider theme={theme}>
-      <StepContext.Provider value={{ totalStep: TOTAL_STEP, currentStep, setCurrentStep }}>
-        <FooterContext.Provider value={{ activeNext, setActiveNext }}>
-          {currentStep.number < 0 ? <FirstPage /> : <Step>{step[currentStep.number]}</Step>}
-          <GlobalStyle />
-        </FooterContext.Provider>
-      </StepContext.Provider>
+      <AppProvider contexts={[StepProvider, FooterProvider, AddressProvider]}>
+        <Router />
+        <GlobalStyle />
+      </AppProvider>
     </ThemeProvider>
   );
 }
-
-export const StepContext = createContext({
-  currentStep: {
-    totalStep: 0,
-    number: null,
-    hideFooter: false,
-    hideTitle: false,
-    hideHeader: false,
-  },
-  setCurrentStep: () => {},
-});
-
-export const FooterContext = createContext({
-  activeNext: false,
-  setActiveNext: () => {},
-});

@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AddressContext } from '../../context/AddressContext';
 
-function AddressContent({ roadAddress, jibunAddress, roadCode, setIsModalOpen }) {
+function AddressContent({ value, setIsModalOpen }) {
+  const { setJusoData } = useContext(AddressContext);
+
+  const clickData = () => {
+    setIsModalOpen(false);
+    const { roadAddr, jibunAddr, liNm, zipNo, rnMgtSn, emdNm, siNm, sggNm } = value;
+    setJusoData({
+      roadAddress: roadAddr,
+      jibunAddress: jibunAddr,
+      liName: liNm,
+      roadCode: zipNo,
+      locationCode: rnMgtSn,
+      myundongName: emdNm,
+      sidoName: siNm,
+      sigunguName: sggNm,
+    });
+  };
+
   return (
-    <Content onClick={() => setIsModalOpen(false)}>
+    <Content onClick={clickData}>
       <Left.Content>
-        <Left.Top>{roadAddress}</Left.Top>
+        <Left.Top>{value.roadAddr}</Left.Top>
         <Left.Bottom>
           <Left.BottomLeft>
             <Left.Jibun>지번</Left.Jibun>
           </Left.BottomLeft>
-          <Left.BottomRight>{jibunAddress}</Left.BottomRight>
+          <Left.BottomRight>{value.jibunAddr}</Left.BottomRight>
         </Left.Bottom>
       </Left.Content>
       <Right.Content>
-        <Right.RoadCode>{roadCode}</Right.RoadCode>
+        <Right.RoadCode>{value.zipNo}</Right.RoadCode>
       </Right.Content>
     </Content>
   );
@@ -56,7 +74,6 @@ const Left = {
     letter-spacing: 0px;
     white-space: pre-wrap;
     color: rgb(91, 85, 85);
-    font-family: 'Spoqa Han Sans Neo';
     font-size: 14px;
     font-weight: 700;
     line-height: 20px;
@@ -89,7 +106,6 @@ const Left = {
     height: 22px;
   `,
   Jibun: styled.span`
-    display: inline-block;
     letter-spacing: 0px;
     white-space: pre-wrap;
     color: rgb(182, 179, 179);
@@ -99,7 +115,6 @@ const Left = {
     line-height: 16px;
   `,
   BottomRight: styled.span`
-    display: inline-block;
     letter-spacing: 0px;
     white-space: pre-wrap;
     color: rgb(91, 85, 85);
@@ -115,20 +130,16 @@ const Right = {
     display: flex;
     opacity: 1;
     box-sizing: border-box;
-    -webkit-box-align: stretch;
     align-items: stretch;
     flex-flow: column nowrap;
-    -webkit-box-pack: start;
     justify-content: flex-start;
     margin-left: 8px;
     width: 50px;
   `,
   RoadCode: styled.span`
-    display: inline-block;
     letter-spacing: 0px;
     white-space: pre-wrap;
     color: rgb(91, 85, 85);
-    font-family: 'Spoqa Han Sans Neo';
     font-size: 14px;
     font-weight: 700;
     line-height: 20px;

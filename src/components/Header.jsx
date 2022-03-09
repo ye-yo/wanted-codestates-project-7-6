@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { StepContext } from '../App';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Arrow } from '../assets/arrow_icon.svg';
 import { ReactComponent as Close } from '../assets/close_icon.svg';
+import { StepContext } from '../context/StepContext';
 
 function Header({ title, prev = 0, close = 0, setIsModalOpen }) {
   const { currentStep, setCurrentStep } = useContext(StepContext);

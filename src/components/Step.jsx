@@ -1,9 +1,9 @@
 import { useContext, useMemo } from 'react';
-import { StepContext } from '../App';
 import Footer from '../components/Footer';
 import styled, { css } from 'styled-components';
 import Header from './Header';
 import { STEPS } from '../constants/step';
+import { StepContext } from '../context/StepContext';
 
 export default function Step({ children }) {
   const { currentStep, totalStep } = useContext(StepContext);

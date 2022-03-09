@@ -1,7 +1,8 @@
 import { useContext, useCallback } from 'react';
-import { StepContext, FooterContext } from '../App';
 import styled, { css } from 'styled-components';
 import { TOTAL_STEP } from '../constants/step';
+import { FooterContext } from '../context/FooterContext';
+import { StepContext } from '../context/StepContext';
 
 export default function Footer() {
   const { currentStep, setCurrentStep } = useContext(StepContext);

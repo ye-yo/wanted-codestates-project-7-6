@@ -1,5 +1,8 @@
 export const TOTAL_STEP = 4;
-
+export const WORK_TYPE_STRING = {
+  DAY: '🌞 24시간 상주',
+  TIME: '⏰ 시간제 돌봄',
+};
 export const STEPS = Object.freeze([
   { stepName: '돌봄 유형', stepTitle: '돌봄 유형을 설정해주세요' },
   { stepName: '돌봄 스케줄', stepTitle: '돌봄 스케줄을 설정해주세요' },

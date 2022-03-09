@@ -1,35 +1,60 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { timeList, careTimeList } from '../temp/staticData';
 import SelectBox from '../components/SelectBox';
 import DateForm from '../components/DateForm';
 import ScheduleModal from '../components/ScheduleModal';
-import { DateProvider } from '../context/DateContext';
+import DateContext, { DateProvider } from '../context/DateContext';
 import { FooterContext } from '../context/FooterContext';
+import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
+import { formatDate, formatTime } from '../utilities/date';
 
 export default function StepSchedule() {
   const { setActiveNext } = useContext(FooterContext);
+  const { applymentBrief, setApplymentBrief } = useContext(ApplymentBriefContext);
+  const { startDate, endDate, visitTime, hour } = useMemo(
+    () => applymentBrief?.schedule || {},
+    [applymentBrief?.schedule]
+  );
   const [modalOpen, setModalOpen] = useState(false);
-  const [duration, setDuration] = useState([]);
-  const [careTime, setCareTime] = useState();
-  const [careStartTime, setCareStartTime] = useState();
-
+  const [duration, setDuration] = useState(startDate ? [startDate, endDate] : []);
+  const [careStartTime, setCareStartTime] = useState(visitTime || null);
+  const [careTime, setCareTime] = useState(hour || null);
   const onOpenModal = () => setModalOpen(true);
   const onCloseModal = () => setModalOpen(false);
 
-  useEffect(() => setActiveNext(false), [setActiveNext]);
-
   useEffect(() => {
-    if (duration.length === 2 && duration[0] && duration[1] && careTime && careStartTime)
+    if (duration.length === 2 && duration[0] && duration[1] && careTime && careStartTime) {
       setActiveNext(true);
-  }, [duration, careTime, careStartTime, setActiveNext]);
+      const schedule = {
+        startDate: duration[0],
+        endDate: duration[1],
+        visitTime: careStartTime,
+        hour: careTime,
+      };
+      setApplymentBrief((data) => ({
+        ...data,
+        schedule,
+      }));
+    }
+  }, [duration, careTime, careStartTime, setActiveNext, setApplymentBrief]);
 
   return (
     <DateProvider>
       <Container>
         <DateFormWrap>
-          <DateForm title="시작일" onClick={onOpenModal} setDuration={setDuration} />
-          <DateForm title="종료일" onClick={onOpenModal} setDuration={setDuration} />
+          <DateForm
+            title="시작일"
+            onClick={onOpenModal}
+            duration={duration}
+            setDuration={setDuration}
+          />
+          <DateForm
+            title="종료일"
+            onClick={onOpenModal}
+            duration={duration}
+            setDuration={setDuration}
+          />
         </DateFormWrap>
         <SelectBox
           name="돌봄 시작 시간"
@@ -53,7 +78,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 16px 64px;
+  padding: 32px 0 64px;
   margin: 0 auto;
   font-weight: bold;
   label {

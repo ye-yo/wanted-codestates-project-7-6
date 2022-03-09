@@ -1,11 +1,15 @@
 import { rgba } from 'polished';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 import Form from '../components/Form';
 import { Body1, Body3, Body4, Caption2, Caption3 } from '../components/Text';
 import { PHONE_AUTH_CODE_LENGTH } from '../constants/auth';
+import { WORK_TYPE_STRING } from '../constants/step';
 import { PageContainer } from '../layouts/Container';
 import { getRandomString } from '../utilities/random';
+import { FooterContext } from '../context/FooterContext';
+import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
+import { formatDateKorean, formatTime } from '../utilities/date';
 
 const AddressContainer = styled.div`
   display: flex;
@@ -50,12 +54,32 @@ const Separator = styled.div`
 `;
 
 export default function StepApplymentBrief() {
+  const { setActiveNext } = useContext(FooterContext);
+  const { applymentBrief } = useContext(ApplymentBriefContext);
   const [isRequested, setIsRequested] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isSendingFailed, setIsSendingFailed] = useState(false);
   const [isWrongCode, setIsWrongCode] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const authCode = useRef(null);
+
+  const schedule = useMemo(() => {
+    const schedule = applymentBrief?.schedule;
+    if (!schedule) return {};
+    const formattedSchedule = {
+      startDate: formatDateKorean(schedule.startDate),
+      endDate: formatDateKorean(schedule.endDate),
+      visitTime: schedule.visitTime,
+      hour: schedule.hour,
+    };
+    return formattedSchedule;
+  }, [applymentBrief?.schedule]);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      // setActiveNext(true);
+    }
+  }, [isAuthorized, setActiveNext]);
 
   const sendAuthMessage = async (phoneNumber) => {
     authCode.current = getRandomString(PHONE_AUTH_CODE_LENGTH);
@@ -86,55 +110,63 @@ export default function StepApplymentBrief() {
 
   return (
     <PageContainer>
-      <BriefContainer>
-        <Body1>신청 내역</Body1>
-        <Body3>돌봄 유형</Body3>
-        <DetailContainer>
-          <Body4>⏰ 시간제 돌봄</Body4>
-        </DetailContainer>
-        <Separator />
-        <Body3>돌봄 일정</Body3>
-        <DetailContainer>
-          <Body4>2022년 1월 12일 ~ 22년 1월 23일</Body4>
-          <Body4>오전 10시부터</Body4>
-          <Body4>8시간</Body4>
-        </DetailContainer>
-        <Separator />
-        <Body3>돌봄 주소</Body3>
-        <DetailContainer>
-          <Body4>서울특별시 강남구 테헤란로 77길 9 (삼성동)</Body4>
-          <AddressContainer>
-            <Chip>
-              <Caption3>지번</Caption3>
-            </Chip>
-            <Caption2>서울특별시 강남구 역삼동 837-11 유니온센터오피스텔</Caption2>
-          </AddressContainer>
-          <Body4>케어닥주공아파트 102동 1204호</Body4>
-        </DetailContainer>
-      </BriefContainer>
-      <FormContainer>
-        <Form
-          onSubmit={sendAuthMessage}
-          placeholder="전화번호 숫자만 입력해주세요."
-          title={isRequested ? '요청 완료' : isSending ? '요청 중...' : '인증 요청'}
-          filter={/[0-9]/}
-          disabled={isRequested || isSending}
-          message={
-            isRequested && !isAuthorized
-              ? `인증 코드 ${PHONE_AUTH_CODE_LENGTH}자리를 전송했습니다. 아래 입력칸에 작성해주세요.`
-              : isSendingFailed
-              ? '전송에 실패했습니다.'
-              : ''
-          }
-        />
-        <Form
-          onSubmit={verifyCode}
-          placeholder="인증 번호를 입력해주세요."
-          title={isAuthorized ? '인증 완료' : '인증 확인'}
-          disabled={!isRequested || isAuthorized}
-          message={isWrongCode ? '잘못된 코드를 입력했습니다. 다시 한 번 확인해주세요.' : ''}
-        />
-      </FormContainer>
+      {applymentBrief?.address ? (
+        <>
+          <BriefContainer>
+            <Body1>신청 내역</Body1>
+            <Body3>돌봄 유형</Body3>
+            <DetailContainer>
+              <Body4>{WORK_TYPE_STRING[applymentBrief.workType]}</Body4>
+            </DetailContainer>
+            <Separator />
+            <Body3>돌봄 일정</Body3>
+            <DetailContainer>
+              <Body4>
+                {schedule.startDate} ~ {schedule.endDate}
+              </Body4>
+              <Body4>{schedule.visitTime}부터</Body4>
+              <Body4>{schedule.hour}</Body4>
+            </DetailContainer>
+            <Separator />
+            <Body3>돌봄 주소</Body3>
+            <DetailContainer>
+              <Body4>{applymentBrief.address.roadAddress}</Body4>
+              <AddressContainer>
+                <Chip>
+                  <Caption3>지번</Caption3>
+                </Chip>
+                <Caption2>{applymentBrief.address.jibunAddress}</Caption2>
+              </AddressContainer>
+              <Body4>{applymentBrief.address.addressDetail}</Body4>
+            </DetailContainer>
+          </BriefContainer>
+          <FormContainer>
+            <Form
+              onSubmit={sendAuthMessage}
+              placeholder="전화번호 숫자만 입력해주세요."
+              title={isRequested ? '요청 완료' : isSending ? '요청 중...' : '인증 요청'}
+              filter={/[0-9]/}
+              disabled={isRequested || isSending}
+              message={
+                isRequested && !isAuthorized
+                  ? `인증 코드 ${PHONE_AUTH_CODE_LENGTH}자리를 전송했습니다. 아래 입력칸에 작성해주세요.`
+                  : isSendingFailed
+                  ? '전송에 실패했습니다.'
+                  : ''
+              }
+            />
+            <Form
+              onSubmit={verifyCode}
+              placeholder="인증 번호를 입력해주세요."
+              title={isAuthorized ? '인증 완료' : '인증 확인'}
+              disabled={!isRequested || isAuthorized}
+              message={isWrongCode ? '잘못된 코드를 입력했습니다. 다시 한 번 확인해주세요.' : ''}
+            />
+          </FormContainer>
+        </>
+      ) : (
+        <Body4>신청 내역이 없습니다.</Body4>
+      )}
     </PageContainer>
   );
 }

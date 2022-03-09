@@ -23,12 +23,14 @@ function AddressModal({ setIsModalOpen }) {
   if (data === 'error') return <ErrorPage />;
   return (
     <SearchPopup>
-      <Header title="주소검색" close setIsModalOpen={setIsModalOpen} />
-      <SearchBox
-        placeholder="주소 또는 건물명으로 검색"
-        value={keyword}
-        onChange={handleAddressOnchange}
-      />
+      <Header title="주소 검색" close setIsModalOpen={setIsModalOpen} />
+      <div style={{ padding: '0 1rem' }}>
+        <SearchBox
+          placeholder="주소 또는 건물명으로 검색"
+          value={keyword}
+          onChange={handleAddressOnchange}
+        />
+      </div>
       <ResultBox>
         <ContentBox>
           {data?.length <= 0 ? (
@@ -102,6 +104,8 @@ const Bottom = {
     justify-content: flex-start;
     padding: 16px;
     display: block;
+    background-color: ${({ theme }) => theme.backgroundGray};
+    height: 100%;
   `,
   Span: styled.span`
     letter-spacing: 0px;

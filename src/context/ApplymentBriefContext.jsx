@@ -2,7 +2,6 @@ import { createContext, useState } from 'react';
 
 const ApplymentBriefProvider = ({ children }) => {
   const [applymentBrief, setApplymentBrief] = useState({});
-  console.log(applymentBrief);
   return (
     <ApplymentBriefContext.Provider value={{ applymentBrief, setApplymentBrief }}>
       {children}

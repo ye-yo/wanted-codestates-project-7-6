@@ -104,6 +104,11 @@ const DateProvider = ({ children }) => {
     ]);
   }, [month, year]);
 
+  const setStartEndDate = (start, end) => {
+    setStartDate(start);
+    setEndDate(end);
+  };
+
   const value = {
     today,
     year,
@@ -119,6 +124,7 @@ const DateProvider = ({ children }) => {
     getCurrentDate,
     getDateKorean,
     isSameDate,
+    setStartEndDate,
   };
 
   return <DateContext.Provider value={value}>{children}</DateContext.Provider>;

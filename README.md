@@ -153,9 +153,15 @@ https://user-images.githubusercontent.com/52448114/157107918-80640368-8e02-419e-
 
 ## 심채윤
 
+시작 화면 및 돌봄 유형 선택 페이지 구현
+
 #### 구현한 방법
 
+시작화면 페이지에서 `CardContainer` 내에 글을, `ButtonContainer` 안에 신청하기 버튼을 넣어 주었습니다. 돌봄 유형 선택 페이지에서는 24시간 상주 또는 시간제 돌봄을 선택할 수 있고, 선택한 유형의 배경색을 `background: ${props.theme.mainColor}`로 주어 주황색으로 변하게끔 구현 하였습니다.
+
 #### 어려웠던 점 (에러 핸들링)
+
+첫 페이지 화면에서 신청하기 버튼을 클릭 시, 다음 페이지로 넘어갈 수 있게 구현하려고 하였습니다. 다음 페이지로 넘어가지 않은 문제가 발생하였습니다. 팀원분의 코멘트를 통해  `<ButtonContainer onClick={() => setCurrentStep({ ...currentStep, number: 0 })}>` 을 `step`은 객체로, `number` 값을 주어서 `step` 페이지를 띄울 수 있도록 변경하였습니다.
 
 
 ## 예효은

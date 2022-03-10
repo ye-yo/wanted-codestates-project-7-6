@@ -221,4 +221,61 @@ export const FooterContext = createContext({
 
 #### 구현한 방법
 
+#### 공통 Header 만들기
+
+`Figma`에서 Header를 비교한 결과 "모달의 Header"와 "돌보미 신청하기 Header"부분이 유사하다고 생각하여 합쳐서 만들면 좋겠다는 생각을 하였습니다. 
+이전 버튼, 제목 부분, 닫힌 버튼 3영역으로 나누어서 개발을 하였습니다. 
+하지만 이전 버튼을 사용할 때에는 닫힌 버튼이 보이지 않아야 하기 때문에 prev를 props로 추가하면 이전 버튼이 보이도록 설정하였습니다.
+Hearder를 이용하여 title, prev, close를 사용할 수 있도록 개발하였습니다. 기존에는 true, false로 비교를 할 수 있도록 하였지만 Boolean 변수는 직접 화면에 출력할 수 없기 때문에 toString()함수를 이용하여 문자열로 변환해야하였습니다. 문자열로 비교하는 방법보다 팀원분의 추천을 받아서 1, 0으로 비교할 수 있도록 하였습니다.
+"돌보미 신청하기 Header부분"
+```jsx
+<Header title="돌보미 신청하기" prev />
+```
+"모달의 Header"
+```jsx
+<Header title="주소검색" close setIsModalOpen={setIsModalOpen} />
+```
+#### 검색 Modal 만들기
+
+공공 데이터 주소 API를 이용하여 데이터를 불러와 사용자가 선택한 주소에 대해 결과값을 Context API에 저장하는 부분을 맡았습니다. 처음에는 fetch를 이용하였지만, axios 라이브러리를 사용하면 조금 더 코드를 줄일 수 있을 것 같아서 코드를 리팩토링하였습니다. 또한 hooks 폴더 안에 데이터를 불러오는 로직을 작성하는 방법과 API 폴더 안에 파일을 옮기는 등 수 많은 시도 끝에 에러를 해결해 나가면서 해당되는 기능을 만들 수 있었습니다.
+
+
 #### 어려웠던 점 (에러 핸들링)
+
+- `hooks 폴더에 데이터 불러오는 로직 작성하기`
+기본적으로 hooks 폴더에는 use로 시작되는 파일명을 작성해주는 것이 원칙이라고 들었었습니다. 그렇기에 useJuso라는 파일명을 작성하고, 그 부분을 onchange에 데이터가 바뀌면 호출될 수 있도록 작성하였지만, use로 시작되는 custom hook은 콜백함수처럼 사용할 수 없다는 에러 문구를 보고 api라는 폴더를 만들어서 getJusoAPI파일를 생성한 후 오류를 해결할 수 있었습니다.
+
+- `async 비동기 함수로 인해 결과값이 Promise로 나오는 현상`
+jsx파일에서 비동기함수로 데이터를 불러올 때는 성공 시에 값이 반환되었습니다. 하지만 파일을 불리하고 나니 성공 시에든 실패 시에든 결과 값이 Promise로 나오게 되었고, 실제 값을 꺼내기 위해 하루종일 해결방법을 찾으려고 노력하였습니다. 왜 Promise로 나오는지 너무 궁금해서 검색 시에 나오는 해당 글을 전부 읽어보고 해결법을 찾으려고 하였습니다. 비동기 함수를 사용하면 항상 리턴 값을  promise로 나오는 게 원칙이다.라는 글을 보게 되었습니다. 그 후 .then을 이용하면 결과 값이 바로 console.log에 찍히는 것을 확인하였고, 그 안에서 useState를 이용하여 데이터를 담아서 활용하였습니다.
+
+- `Context API를 한번에 묶기`
+여러 개의 context API를 사용하게 되었고, App.jsx에서 파일이 점차 많아져서 깊어지는 게 코드가 보기 불편하다라는 생각을 가지게 되었습니다. 
+```jsx
+return (
+  <Step.Provider>
+    <Footer.Provider>
+      ....
+    </Footer.Provider>
+  </Step.Provider>
+)
+```
+그리하여 배열의 내장함수 reduce 와 리액트 컴포넌트의 createElement 를 활용하여 아래와 같이 코드를 만들어서 좀 더 보기 좋게 변경하였습니다.
+```jsx
+const AppProvider = ({ contexts, children }) => contexts.reduce(
+  (prev, context) => React.createElement(context, {
+    children: prev
+  }), 
+  children
+);
+
+const App = () => {
+  return (
+    <AppProvider
+      contexts={[StepContext, FooterContext, AddressContext]}
+    >
+     {currentStep.number < 0 ? <FirstPage /> : <Step>{step[currentStep.number]}</Step>}
+    </AppProvider>
+  );
+};
+```
+하지만 context API를 이용하여 해당되는 페이지를 변경해주는 로직이라 currentStep에 대한 데이테가 변경되는 것을 하위컴포넌트부터 발생되어진다는 것을 알게 되었고, 페이지 결과를 변경시켜주는 Router를 하위컴포넌트로 수정하자라는 생각을 통해 성공할 수 있었습니다.

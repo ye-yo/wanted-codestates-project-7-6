@@ -7,7 +7,7 @@
 
 ## 프로젝트 실행 방법
 
-- 배포 사이트 :
+- 배포 사이트 : https://caredoc.vercel.app/
 
 - 로컬 
 1. `git clone https://github.com/Pre-Onboarding-FE-Team07/wanted-codestates-project-7-6.git`
@@ -19,12 +19,16 @@
 
 ```
 --📁 src
+  ---📁 api ➡ 데이터를 불러오는 로직을 담은 폴더
   ---📁 assets ➡ 아이콘 등의 에셋 폴더
   ---📁 components ➡ 컴포넌트 폴더
   ---📁 constants ➡ 전역 상수 폴더
+  ---📁 context ➡ context API를 담은 폴더
+  ---📁 layouts ➡ 재사용을 위해 레이아웃 분리
   ---📁 pages ➡ 페이지 컴포넌트 폴더
-  ---📁 hooks - 커스텀 훅을 모아둔 폴더
   ---📁 styles ➡ 스타일 관련 파일 폴더
+  ---📁 temp ➡ 데이터 폴더
+  ---📁 utilities ➡ 모듈화된 함수를 모아둔 폴더
 ```
 
 ## 팀 멤버

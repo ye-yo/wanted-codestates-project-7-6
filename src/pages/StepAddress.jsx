@@ -1,26 +1,38 @@
-import { useContext, useState, useCallback, useMemo } from 'react';
+import { useContext, useState, useCallback, useMemo, useEffect } from 'react';
 import SearchBox from '../components/SearchBox';
 import styled from 'styled-components';
 import AddressModal from '../components/AddressModal/AddressModal';
 import { AddressContext } from '../context/AddressContext';
 import { FooterContext } from '../context/FooterContext';
+import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
 
 export default function StepAddress() {
   const { setActiveNext } = useContext(FooterContext);
+  const { applymentBrief, setApplymentBrief } = useContext(ApplymentBriefContext);
   const { jusoData } = useContext(AddressContext);
   const [address, setAddress] = useState('');
-  const [detail, setDetail] = useState('');
+  const [addressDetail, setAddressDetail] = useState(applymentBrief?.address?.addressDetail || '');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useMemo(() => setAddress(jusoData?.roadAddress), [jusoData?.roadAddress]);
+
   const openSearchModal = useCallback(() => {
     setIsModalOpen(true);
   }, [setIsModalOpen]);
 
-  const handleInput = (e) => {
-    setDetail(e.target.value);
-    setActiveNext(e.target.value.trim() && address);
-  };
+  useEffect(() => {
+    if (addressDetail.trim() && address) {
+      jusoData.addressDetail = addressDetail;
+      setActiveNext(true);
+      setApplymentBrief((data) => ({
+        ...data,
+        address: jusoData,
+      }));
+    } else {
+      setActiveNext(false);
+    }
+  }, [address, addressDetail, jusoData, setActiveNext, setApplymentBrief]);
+
   return (
     <>
       {isModalOpen && <AddressModal setIsModalOpen={setIsModalOpen} />}
@@ -33,7 +45,11 @@ export default function StepAddress() {
         />
         <ButtonResearch onClick={openSearchModal}>재검색</ButtonResearch>
       </SearchWrap>
-      <BorderBox value={detail} onChange={handleInput} placeholder="상세 주소를 입력해주세요" />
+      <BorderBox
+        value={addressDetail}
+        onChange={({ target: { value } }) => setAddressDetail(value)}
+        placeholder="상세 주소를 입력해주세요"
+      />
     </>
   );
 }
@@ -62,5 +78,6 @@ const ButtonResearch = styled.button`
   ${({ theme }) => theme.buttonMain}
   width: 18.6%;
   margin-left: 8px;
-  font-size: 1.2rem;
+  font-size: 1.12rem;
+  font-weight: 500;
 `;

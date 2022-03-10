@@ -1,17 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { FooterContext } from '../context/FooterContext';
+import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
 import styled from 'styled-components';
 import { useContext, useState } from 'react';
 import { css } from 'styled-components';
 
 export default function SelectTimeType({ type }) {
   const { setActiveNext } = useContext(FooterContext);
-  const [isPartTime, setIsPartTime] = useState(false);
-  const [isAlldayTime, setIsAlldayTime] = useState(false);
+  const { applymentBrief, setApplymentBrief } = useContext(ApplymentBriefContext);
+  const workType = useMemo(() => applymentBrief?.workType || null, [applymentBrief?.workType]);
+  const [isAlldayTime, setIsAlldayTime] = useState(workType ? workType === 'DAY' : false);
+  const [isPartTime, setIsPartTime] = useState(workType ? workType === 'TIME' : false);
 
   useEffect(() => {
-    setActiveNext(isAlldayTime || isPartTime);
-  }, [isAlldayTime, isPartTime, setActiveNext]);
+    if (isAlldayTime || isPartTime) {
+      setActiveNext(true);
+      setApplymentBrief((data) => ({
+        ...data,
+        workType: isAlldayTime ? 'DAY' : 'TIME',
+      }));
+    } else {
+      setActiveNext(false);
+    }
+  }, [isAlldayTime, isPartTime, setActiveNext, setApplymentBrief]);
 
   const timeClick = () => {
     setIsPartTime(!isPartTime);

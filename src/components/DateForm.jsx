@@ -3,9 +3,15 @@ import styled from 'styled-components';
 import { ReactComponent as CalendarIcon } from '../assets/calendar_icon.svg';
 import DateContext from '../context/DateContext';
 
-const DateForm = ({ title, onClick, setDuration }) => {
-  const { startDate, endDate, getDateKorean } = useContext(DateContext);
+const DateForm = ({ title, onClick, duration, setDuration }) => {
+  const { startDate, endDate, getDateKorean, setStartEndDate } = useContext(DateContext);
   const [filled, setFilled] = useState(false);
+
+  useEffect(() => {
+    if (duration.length > 0 && duration[0]) {
+      setStartEndDate(new Date(duration[0]), new Date(duration[1]));
+    }
+  }, []);
 
   useEffect(() => {
     if ((title === '시작일' && startDate) || (title === '종료일' && endDate)) setFilled(true);
@@ -32,7 +38,7 @@ const DateFormStyled = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  &: first-child {
+  &:first-child {
     margin-right: 8px;
   }
 `;

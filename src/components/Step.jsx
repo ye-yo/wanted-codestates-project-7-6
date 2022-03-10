@@ -12,7 +12,6 @@ export default function Step({ children }) {
   return (
     number >= 0 && (
       <StepWrap>
-        {/* Header */}
         {!currentStep.hideHeader && <Header title="돌보미 신청하기" prev />}
         <ContentWrap>
           {!currentStep.hideTitle && (
@@ -44,10 +43,9 @@ const StepWrap = styled.div`
 const ContentWrap = styled.main`
   width: 100%;
   padding: 16px;
-  height: 100%;
-  min-height: 100%;
-  overflow-y: auto;
+  height: ${({ theme }) => `calc(100% - ${theme.headerHeight})`};
   color: #5b5555;
+  overflow-y: auto;
   ${({ theme }) => css`
     padding-bottom:${theme.footerHeight};
    }`}

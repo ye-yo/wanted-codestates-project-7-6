@@ -6,7 +6,7 @@ import { StepContext } from '../context/StepContext';
 
 export default function Footer() {
   const { currentStep, setCurrentStep } = useContext(StepContext);
-  const { activeNext } = useContext(FooterContext);
+  const { activeNext, setActiveNext } = useContext(FooterContext);
   const moveStep = useCallback(
     (value) => {
       setCurrentStep(({ number }) =>
@@ -14,8 +14,9 @@ export default function Footer() {
           ? { ...currentStep, number: -1 }
           : { ...currentStep, number: currentStep.number + value }
       );
+      setActiveNext(value === -1);
     },
-    [currentStep, setCurrentStep]
+    [currentStep, setCurrentStep, setActiveNext]
   );
   return (
     <FooterWrap>

@@ -125,7 +125,7 @@ export default function StepApplymentBrief() {
               <Body4>
                 {schedule.startDate} ~ {schedule.endDate}
               </Body4>
-              <Body4>{schedule.visitTime}부터</Body4>
+              <Body4>{schedule.visitTime !== '24시간' && schedule.visitTime + '부터'}</Body4>
               <Body4>{schedule.hour}</Body4>
             </DetailContainer>
             <Separator />

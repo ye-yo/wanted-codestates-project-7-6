@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as DropdownIcon } from '../assets/chevron_down_icon.svg';
 import { ReactComponent as CloseIcon } from '../assets/close_icon.svg';
 
-export default function SelectBox({ name, data, selected, setSelected }) {
+export default function SelectBox({ name, data, selected, setSelected, disabled }) {
   const [openMenu, setOpenMenu] = useState(false);
 
   const onOpenMenu = () => {
@@ -14,14 +14,25 @@ export default function SelectBox({ name, data, selected, setSelected }) {
     setOpenMenu(false);
   };
 
+  useEffect(() => {
+    if (disabled) {
+      setSelected('24시간');
+    } else {
+      setSelected();
+    }
+  }, [disabled]);
   return (
     <>
       <Dropdown>
         <label>{name}</label>
-        <Dropdown.Button onClick={onOpenMenu}>
-          <span>{selected ? selected : '선택'}</span>
-          <DropdownIcon />
-        </Dropdown.Button>
+        {disabled ? (
+          <Dropdown.Button>{selected}</Dropdown.Button>
+        ) : (
+          <Dropdown.Button onClick={onOpenMenu}>
+            <span>{selected ? selected : '선택'}</span>
+            <DropdownIcon />
+          </Dropdown.Button>
+        )}
       </Dropdown>
       <Overlay show={openMenu} onClick={onCloseMenu}>
         <MenuWrapper show={openMenu} onClick={(e) => e.stopPropagation()}>

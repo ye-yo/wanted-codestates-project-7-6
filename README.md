@@ -59,7 +59,19 @@
 
 #### 구현한 방법
 
+- [`StepApplymentBrief`](./src/pages/StepApplymentBrief.jsx)를 작성했습니다. 이미 피그마로 작성되어 있어 공통으로 사용되는 부분을 별도의 파일로 분리하여 관리했습니다.
+  
+- 위 페이지에서 [Naver SENS API](https://www.ncloud.com/product/applicationService/sens)를 이용해 휴대폰 인증을 구현했습니다. 처음엔 [Twilio SMS API](https://www.twilio.com/sms)를 이용했다가, Trial 버전은 인증된 휴대폰으로만 전송이 가능하다는 문제와 요금 문제로 naver api로 변경했습니다.
+  
+- Twilio를 이용할 때 제공되는 모듈이 server-side 밖에 지원하지 않아서 간단한 서버가 필요했습니다. [Vercel Serverless Functions](https://vercel.com/docs/concepts/functions/serverless-functions) 기능을 알게되었고, 간단한 serverless 함수를 통해 api를 제공했습니다. 코드를 분리할 수 있다는 장점이 있어 API 변경 후에도 이를 유지하기로 결정했습니다.
+
+- 요청되었는지, 전송 중인지, 잘못된 응답이 왔는지, 인증이 되었는지 등에 따라 UI를 변경하거나 안내 메시지를 띄워 사용자가 현재 상태를 확실히 알 수 있도록 하였습니다.
+
+- Vercel와 저장소를 연결하여 배포까지 완료했습니다.
+
 #### 어려웠던 점 (에러 핸들링)
+
+- SMS 전송 API를 구축하는 과정에서 많은 어려움이 있었습니다. 과정이 길고 복잡하여 꽤 많은 시간을 할애했습니다. Twilio의 경우 영문으로 되어있어 정보를 찾기 어려워 많은 문서를 읽어봐야 했고, naver의 경우 절차대로 진행했으나 401 에러로 고생했습니다.
 
 
 ## 김정훈

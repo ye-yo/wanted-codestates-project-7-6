@@ -15,6 +15,7 @@ export default function StepSchedule() {
     () => applymentBrief?.schedule || {},
     [applymentBrief?.schedule]
   );
+  const workType = useMemo(() => applymentBrief?.workType, [applymentBrief?.workType]);
   const [modalOpen, setModalOpen] = useState(false);
   const [duration, setDuration] = useState(startDate ? [startDate, endDate] : []);
   const [careStartTime, setCareStartTime] = useState(visitTime || null);
@@ -60,12 +61,14 @@ export default function StepSchedule() {
           data={timeList}
           selected={careStartTime}
           setSelected={setCareStartTime}
+          disabled={workType === 'DAY'}
         />
         <SelectBox
           name="하루 돌봄 시간"
           data={careTimeList}
           selected={careTime}
           setSelected={setCareTime}
+          disabled={workType === 'DAY'}
         />
       </Container>
       {modalOpen && <ScheduleModal onClose={onCloseModal} />}

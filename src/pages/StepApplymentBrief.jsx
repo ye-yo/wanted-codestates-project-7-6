@@ -92,6 +92,7 @@ export default function StepApplymentBrief() {
     });
     setIsSending(false);
     if (res.data.ok) {
+      console.log(`테스트 코드: ${authCode.current}`);
       setIsRequested(true);
     } else {
       authCode.current = null;
@@ -145,9 +146,17 @@ export default function StepApplymentBrief() {
             <Form
               onSubmit={sendAuthMessage}
               placeholder="전화번호 숫자만 입력해주세요."
-              title={isRequested ? '요청 완료' : isSending ? '요청 중...' : '인증 요청'}
+              title={
+                isRequested
+                  ? isAuthorized
+                    ? '인증 완료'
+                    : '요청 완료'
+                  : isSending
+                  ? '요청 중...'
+                  : '인증 요청'
+              }
               filter={/[0-9]/}
-              disabled={isRequested || isSending}
+              disabled={isSending || isAuthorized}
               message={
                 isRequested && !isAuthorized
                   ? `인증 코드 ${PHONE_AUTH_CODE_LENGTH}자리를 전송했습니다. 아래 입력칸에 작성해주세요.`

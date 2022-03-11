@@ -10,6 +10,7 @@ import { getRandomString } from '../utilities/random';
 import { FooterContext } from '../context/FooterContext';
 import { ApplymentBriefContext } from '../context/ApplymentBriefContext';
 import { formatDateKorean } from '../utilities/date';
+import axios from 'axios';
 
 const AddressContainer = styled.div`
   display: flex;
@@ -62,6 +63,7 @@ export default function StepApplymentBrief() {
   const [isSendingFailed, setIsSendingFailed] = useState(false);
   const [isWrongCode, setIsWrongCode] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const authCode = useRef(null);
 
   const schedule = useMemo(() => {
@@ -77,26 +79,24 @@ export default function StepApplymentBrief() {
   }, [applymentBrief?.schedule]);
 
   useEffect(() => {
-    // if (isAuthorized) {
-    setActiveNext(true);
-    // }
+    setActiveNext(isAuthorized);
   }, [isAuthorized, setActiveNext]);
 
   const sendAuthMessage = async (phoneNumber) => {
     authCode.current = getRandomString(PHONE_AUTH_CODE_LENGTH);
     setIsSending(true);
-    const res = { data: { ok: true } }; // !TEST_CODE
-    // const res = await axios.post('/api/sms', {
-    //   to: phoneNumber,
-    //   message: `인증코드: ${authCode.current}`,
-    // });
+    setIsSendingFailed(false);
+    const res = await axios.post('/api/sms', {
+      to: phoneNumber,
+      content: `인증번호 [${authCode.current}]를 정확히 입력해주세요.`,
+    });
     setIsSending(false);
     if (res.data.ok) {
       setIsRequested(true);
-      console.log('테스트 코드:', authCode.current); //!TEST_CODE
     } else {
       authCode.current = null;
       setIsSendingFailed(true);
+      setErrorMessage(res.data.reason);
     }
   };
 
@@ -152,7 +152,7 @@ export default function StepApplymentBrief() {
                 isRequested && !isAuthorized
                   ? `인증 코드 ${PHONE_AUTH_CODE_LENGTH}자리를 전송했습니다. 아래 입력칸에 작성해주세요.`
                   : isSendingFailed
-                  ? '전송에 실패했습니다.'
+                  ? `전송에 실패했습니다. ${errorMessage}`
                   : ''
               }
             />

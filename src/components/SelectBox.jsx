@@ -20,7 +20,7 @@ export default function SelectBox({ name, data, selected, setSelected, disabled 
     } else {
       setSelected();
     }
-  }, [disabled]);
+  }, [disabled, setSelected]);
   return (
     <>
       <Dropdown>

@@ -11,6 +11,7 @@ const ScheduleModal = ({ onClose }) => {
         <CloseButton onClick={onClose} />
       </Header>
       <CalenderView />
+      <ConfirmButton onClick={onClose}>선택하기</ConfirmButton>
     </ScheduleModalStyled>
   );
 };
@@ -20,12 +21,12 @@ const ScheduleModalStyled = styled.div`
   flex-direction: column;
   align-items: center;
   font-weight: bold;
-  position: fixed;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   background-color: #fff;
-  width: 100vw;
-  height: 100vh;
   z-index: 20;
 `;
 
@@ -45,6 +46,16 @@ const CloseButton = styled(CloseIcon)`
   cursor: pointer;
   position: absolute;
   right: 16px;
+`;
+
+const ConfirmButton = styled.button`
+  cursor: pointer;
+  width: 100%;
+  background-color: ${({ theme }) => theme.mainColor};
+  color: ${({ theme }) => theme.buttonWhite.backgroundColor};
+  border: none;
+  height: 5rem;
+  font-weight: bold;
 `;
 
 export default ScheduleModal;

@@ -107,12 +107,12 @@ const Menu = styled.ul`
 `;
 
 const Overlay = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   ${({ show }) =>
     show
-      ? `position: fixed;
+      ? `position: absolute;
   top: 0;
   left: 0;`
       : 'height: 0;'}

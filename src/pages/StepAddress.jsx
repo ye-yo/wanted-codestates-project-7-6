@@ -43,7 +43,7 @@ export default function StepAddress() {
           value={address}
           placeholder="주소 또는 건물명으로 검색"
         />
-        <ButtonResearch onClick={openSearchModal}>재검색</ButtonResearch>
+        {address && <ButtonResearch onClick={openSearchModal}>재검색</ButtonResearch>}
       </SearchWrap>
       <BorderBox
         value={addressDetail}
